@@ -2,6 +2,7 @@ package sistemapaquetes.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import sistemapaquetes.ui.administradorUI.AddUserView;
 import sistemapaquetes.ui.administradorUI.AdminView;
 
@@ -21,9 +22,9 @@ public class AdminUIController implements ActionListener{
     }
     
     public void iniciar(){
-        //adminUI.pack();
+        adminUI.pack();
+        adminUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
         adminUI.setLocationRelativeTo(null);
-        adminUI.setResizable(false);
         adminUI.setVisible(true);
     }
 

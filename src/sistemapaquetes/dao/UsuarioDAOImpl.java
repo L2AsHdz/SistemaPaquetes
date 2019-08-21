@@ -55,8 +55,8 @@ public class UsuarioDAOImpl implements UsuarioDAO{
     @Override
     public void create(Usuario u) {
         try {
-            String sql = "INSERT INTO Usuario(DPI, Nombre, Tipo, Estado, Password, NombreUsuario) "
-            + "VALUES(?,?,?,?,?,?)";
+            String sql = "INSERT INTO Usuario (DPI, Nombre, Tipo, Estado, Password, NombreUsuario) "
+            + "VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, u.getDPI());
             ps.setString(2, u.getNombre());
@@ -64,7 +64,8 @@ public class UsuarioDAOImpl implements UsuarioDAO{
             ps.setInt(4,1);
             ps.setString(5, u.getPassword());
             ps.setString(6, u.getNombreUsuario());
-            ps.executeUpdate();
+            ps.execute();
+            System.out.println("Registro Ingresado Correctamente");
             ps.close();
             ps = null;
         } catch (SQLException ex) {

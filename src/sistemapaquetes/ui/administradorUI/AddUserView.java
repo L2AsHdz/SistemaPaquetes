@@ -52,6 +52,8 @@ public class AddUserView extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         ftxtDPI = new javax.swing.JFormattedTextField();
 
+        setTitle("Añadir Usuario");
+
         jLabel1.setText("Nombre");
 
         jLabel2.setText("Nombre de Usuario");

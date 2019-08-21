@@ -43,11 +43,11 @@ public class AdminView extends javax.swing.JFrame {
         DeskAdminFrame.setLayout(DeskAdminFrameLayout);
         DeskAdminFrameLayout.setHorizontalGroup(
             DeskAdminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 557, Short.MAX_VALUE)
+            .addGap(0, 467, Short.MAX_VALUE)
         );
         DeskAdminFrameLayout.setVerticalGroup(
             DeskAdminFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 353, Short.MAX_VALUE)
+            .addGap(0, 398, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Usuarios");

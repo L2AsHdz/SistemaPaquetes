@@ -47,7 +47,7 @@ public class AddUserController implements ActionListener{
             nombre = addUserView.getTxtNombre().getText();
             nombreUsuario = addUserView.getTxtNombreUsuario().getText();
             pass = addUserView.getTxtPass().getText();
-            tipo = (byte)addUserView.getCbTipoUsuario().getSelectedIndex();
+            tipo = (byte)(addUserView.getCbTipoUsuario().getSelectedIndex()+1);
             
             if (validarDatos(DPI,nombre, nombreUsuario, tipo, pass)) {
                 nuevoUsuario(DPI, nombre, nombreUsuario, tipo, pass);
@@ -63,7 +63,7 @@ public class AddUserController implements ActionListener{
             nombre = addUserView.getTxtNombre().getText();
             nombreUsuario = addUserView.getTxtNombreUsuario().getText();
             pass = addUserView.getTxtPass().getText();
-            tipo = (byte)addUserView.getCbTipoUsuario().getSelectedIndex();
+            tipo = (byte)(addUserView.getCbTipoUsuario().getSelectedIndex()+1);
             
             if (validarDatos(DPI, nombre, nombreUsuario, tipo, pass)) {
                 nuevoUsuario(DPI, nombre, nombreUsuario, tipo, pass);
@@ -100,6 +100,5 @@ public class AddUserController implements ActionListener{
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setPassword(pass);
         usuario.setTipo(tipo);
-        userDAO.create(usuario);
     }
 }
