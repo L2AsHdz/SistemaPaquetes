@@ -9,19 +9,19 @@ public class PuntoControl {
     private String nombre;
     private int idRuta;
     private int limitePaquetes;
-    private int idOperador;
+    private String DPIOperador;
     private float tarifaOperacion;
     private float tarifaOperacionGlobal;
 
     public PuntoControl() {
     }
 
-    public PuntoControl(int numero, String nombre, int idRuta, int limitePaquetes, int idOperador, float tarifaOperacion, float tarifaOperacionGlobal) {
+    public PuntoControl(int numero, String nombre, int idRuta, int limitePaquetes, String DPIOperador, float tarifaOperacion, float tarifaOperacionGlobal) {
         this.numero = numero;
         this.nombre = nombre;
         this.idRuta = idRuta;
         this.limitePaquetes = limitePaquetes;
-        this.idOperador = idOperador;
+        this.DPIOperador = DPIOperador;
         this.tarifaOperacion = tarifaOperacion;
         this.tarifaOperacionGlobal = tarifaOperacionGlobal;
     }
@@ -58,12 +58,12 @@ public class PuntoControl {
         this.limitePaquetes = limitePaquetes;
     }
 
-    public int getIdOperador() {
-        return idOperador;
+    public String getDPIOperador() {
+        return DPIOperador;
     }
 
-    public void setIdOperador(int idOperador) {
-        this.idOperador = idOperador;
+    public void setIdOperador(String DPIOperador) {
+        this.DPIOperador = DPIOperador;
     }
 
     public float getTarifaOperacion() {

@@ -5,16 +5,19 @@
  */
 package sistemapaquetes.ui.administradorUI;
 
+import javax.swing.JDesktopPane;
+import javax.swing.JMenuItem;
+
 /**
  *
  * @author asael
  */
-public class AdminFrame extends javax.swing.JFrame {
+public class AdminView extends javax.swing.JFrame {
 
     /**
      * Creates new form AdminUI
      */
-    public AdminFrame() {
+    public AdminView() {
         initComponents();
     }
 
@@ -84,4 +87,16 @@ public class AdminFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
+
+    public JDesktopPane getDeskAdminFrame() {
+        return DeskAdminFrame;
+    }
+
+    public JMenuItem getItmAddUser() {
+        return itmAddUser;
+    }
+
+    public JMenuItem getItmDeshabilitarUser() {
+        return itmDeshabilitarUser;
+    }
 }

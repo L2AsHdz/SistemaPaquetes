@@ -3,7 +3,7 @@ package sistemapaquetes;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import sistemapaquetes.controller.LoginController;
-import sistemapaquetes.ui.LoginFrame;
+import sistemapaquetes.ui.LoginView;
 
 /**
  *
@@ -18,7 +18,7 @@ public class SistemaPaquetes {
             JOptionPane.showMessageDialog(null, e);
         }
         
-        LoginFrame log = new LoginFrame();
+        LoginView log = new LoginView();
         LoginController logC = new LoginController(log);
         logC.iniciar();
     }

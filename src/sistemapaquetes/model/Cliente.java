@@ -5,24 +5,24 @@ package sistemapaquetes.model;
  * @author asael
  */
 public class Cliente {
-    private int nit;
+    private String nit;
     private String nombre;
     private String direccion;
 
     public Cliente() {
     }
 
-    public Cliente(int nit, String nombre, String direccion) {
+    public Cliente(String nit, String nombre, String direccion) {
         this.nit = nit;
         this.nombre = nombre;
         this.direccion = direccion;
     }
 
-    public int getNit() {
+    public String getNit() {
         return nit;
     }
 
-    public void setNit(int nit) {
+    public void setNit(String nit) {
         this.nit = nit;
     }
 

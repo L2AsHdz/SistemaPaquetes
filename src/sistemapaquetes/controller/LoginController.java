@@ -7,21 +7,24 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import sistemapaquetes.model.Usuario;
-import sistemapaquetes.ui.LoginFrame;
+import sistemapaquetes.ui.LoginView;
+import sistemapaquetes.ui.administradorUI.AdminView;
 
 /**
  *
  * @author asael
  */
 public class LoginController implements ActionListener{
-    private LoginFrame login;
+    private LoginView login;
     private CRUD<Usuario> userDAO;
+    private AdminView adminView;
+    private AdminUIController adminC;
 
-    public LoginController(LoginFrame log) {
+    public LoginController(LoginView log) {
         this.login = log;
         userDAO = new UsuarioDAOImpl();
-        login.btnLogin.addActionListener(this);
-        login.btnSalir.addActionListener(this);
+        login.getBtnLogin().addActionListener(this);
+        login.getBtnSalir().addActionListener(this);
     }
     
     //Iniciar interfaz login
@@ -34,14 +37,16 @@ public class LoginController implements ActionListener{
     //Eventos de los botones
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (login.btnLogin == e.getSource()) {
+        if (login.getBtnLogin() == e.getSource()) {
              try {
                 validarLogin((ArrayList<Usuario>) userDAO.getListado(), 
-                login.txtUsuario.getText(), login.txtPassword.getText());
+                login.getTxtUsuario().getText(), login.getTxtPassword().getText());
              } catch (Exception ex) {
                 System.out.println("Error al intentar validar");
+                System.out.println(ex.getMessage());
+                ex.printStackTrace();
              }
-        }else if (login.btnSalir == e.getSource()) {
+        }else if (login.getBtnSalir() == e.getSource()) {
             System.exit(0);
         }
     }
@@ -50,12 +55,15 @@ public class LoginController implements ActionListener{
         if (nombre.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Los campos estan vacios", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println("Error! - Campos vacios");
-            login.txtUsuario.requestFocus();
+            login.getTxtUsuario().requestFocus();
         }else {
             int tipoUser = 0;
             for (Usuario u : users) {
-                if (nombre.equalsIgnoreCase(u.getNombre()) && pass.equals(u.getPassword())) {
-                tipoUser = u.getTipo();               
+                if (nombre.equalsIgnoreCase(u.getNombreUsuario()) && pass.equals(u.getPassword())) {
+                    tipoUser = u.getTipo();          
+                    if (u.getEstado() == 0) {
+                        tipoUser = 4;
+                    }
                 }
             }
             switch (tipoUser) {
@@ -67,9 +75,12 @@ public class LoginController implements ActionListener{
                     
                 case 1:
                     login.dispose();
-                    JOptionPane.showMessageDialog(null, "Login correcto", "Inicio", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Login correcto", "Inicio", 
+                    JOptionPane.INFORMATION_MESSAGE);
                     limpiarCampos();
-                    //abrir gui administrador sistema
+                    adminView = new AdminView();
+                    adminC = new AdminUIController(adminView);
+                    adminC.iniciar();
                     break;
                 
                 case 2:
@@ -79,14 +90,18 @@ public class LoginController implements ActionListener{
                 case 3:
                     //abrir gui recepcionista
                     break;
+                case 4:
+                    JOptionPane.showMessageDialog(null, "Usuario Deshabilitado", 
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+                    break;
             }
         }
     }
     
     //Limpia los campos del login y coloca el cursor en el txtUsuario
-    public void limpiarCampos(){
-        login.txtUsuario.setText("");
-        login.txtPassword.setText("");
-        login.txtUsuario.requestFocus();
+    private void limpiarCampos(){
+        login.getTxtUsuario().setText("");
+        login.getTxtPassword().setText("");
+        login.getTxtUsuario().requestFocus();
     }
 }

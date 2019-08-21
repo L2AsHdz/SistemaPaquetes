@@ -5,14 +5,15 @@ package sistemapaquetes.model;
  * @author asael
  */
 public class Usuario {
-    private int id;
+    private String DPI;
     private String nombre;
+    private String nombreUsuario;
+    private String password;
     private byte tipo;
     private byte estado;
-    private String password;
 
-    public Usuario(int id, String nombre, byte tipo, byte estado, String password) {
-        this.id = id;
+    public Usuario(String DPI, String nombre, byte tipo, byte estado, String password) {
+        this.DPI = DPI;
         this.nombre = nombre;
         this.tipo = tipo;
         this.estado = estado;
@@ -22,12 +23,12 @@ public class Usuario {
     public Usuario() {
     }
 
-    public int getId() {
-        return id;
+    public String getDPI() {
+        return DPI;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDPI(String DPI) {
+        this.DPI = DPI;
     }
 
     public String getNombre() {
@@ -36,6 +37,14 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public byte getTipo() {
