@@ -52,6 +52,7 @@ public class AddUserController implements ActionListener{
             if (validarDatos(DPI,nombre, nombreUsuario, tipo, pass)) {
                 nuevoUsuario(DPI, nombre, nombreUsuario, tipo, pass);
                 userDAO.create(usuario);
+                addUserView.reloadList();
             }
         }else if (addUserView.getBtnCerrar() == e.getSource()) {
             addUserView.dispose();
@@ -68,6 +69,7 @@ public class AddUserController implements ActionListener{
             if (validarDatos(DPI, nombre, nombreUsuario, tipo, pass)) {
                 nuevoUsuario(DPI, nombre, nombreUsuario, tipo, pass);
                 userDAO.update(usuario);
+                addUserView.reloadList();
             }
         }else if (addUserView.getBtnDeshabilitar() == e.getSource()) {
             //codigo para deshabilitara un usuario

@@ -10,7 +10,9 @@ public class Usuario {
     private String nombreUsuario;
     private String password;
     private byte tipo;
+    private String tipoN;
     private byte estado;
+    private String estadoS;
 
     public Usuario(String DPI, String nombre, byte tipo, byte estado, String password) {
         this.DPI = DPI;
@@ -53,6 +55,27 @@ public class Usuario {
 
     public void setTipo(byte tipo) {
         this.tipo = tipo;
+        setTipoN();
+    }
+
+    public String getTipoN() {
+        return tipoN;
+    }
+
+    public void setTipoN() {
+        switch (tipo) {
+            case 1:
+                this.tipoN = "Administrador";
+                break;
+            case 2:
+                this.tipoN = "Operador";
+                break;
+            case 3:
+                this.tipoN = "Recepcionista";
+                break;
+            default:
+                break;
+        }
     }
 
     public byte getEstado() {
@@ -61,6 +84,22 @@ public class Usuario {
 
     public void setEstado(byte estado) {
         this.estado = estado;
+        setEstadoS();
+    }
+
+    public String getEstadoS() {
+        return estadoS;
+    }
+
+    public void setEstadoS() {
+        switch (estado) {
+            case 0:
+                this.estadoS = "Deshabilitado";
+                break;
+            case 1:
+                this.estadoS ="Activo";
+                break;
+        }
     }
 
     public String getPassword() {

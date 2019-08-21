@@ -5,23 +5,34 @@
  */
 package sistemapaquetes.ui.administradorUI;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import org.jdesktop.observablecollections.ObservableCollections;
+import org.jdesktop.observablecollections.ObservableList;
+import sistemapaquetes.dao.CRUD;
+import sistemapaquetes.dao.UsuarioDAOImpl;
+import sistemapaquetes.model.Usuario;
 
 /**
  *
  * @author asael
  */
 public class AddUserView extends javax.swing.JInternalFrame {
+    
+    private List<Usuario> userList = new ArrayList();
+    private ObservableList<Usuario> userListObservable;
 
     /**
      * Creates new form AddUserIFrame
      */
     public AddUserView() {
+        userListObservable = ObservableCollections.observableList(userList);
         initComponents();
     }
 
@@ -33,6 +44,7 @@ public class AddUserView extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -75,14 +87,30 @@ public class AddUserView extends javax.swing.JInternalFrame {
 
         btnCerrar.setText("Cerrar");
 
-        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${userListObservable}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tblUsuarios);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${DPI}"));
+        columnBinding.setColumnName("DPI");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
+        columnBinding.setColumnName("Nombre");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreUsuario}"));
+        columnBinding.setColumnName("Nombre Usuario");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${estadoS}"));
+        columnBinding.setColumnName("Estado");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tipoN}"));
+        columnBinding.setColumnName("Tipo Usuario");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
         jScrollPane1.setViewportView(tblUsuarios);
 
         jLabel5.setText("DPI");
@@ -168,6 +196,8 @@ public class AddUserView extends javax.swing.JInternalFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -190,8 +220,17 @@ public class AddUserView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombreUsuario;
     private javax.swing.JPasswordField txtPass;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
+    @Override
+    public void setVisible(boolean visibility){
+        if (visibility) {
+            reloadList();
+        }
+        super.setVisible(visibility);
+    }
+    
     public JButton getBtnAdd() {
         return btnAdd;
     }
@@ -234,6 +273,21 @@ public class AddUserView extends javax.swing.JInternalFrame {
 
     public JFormattedTextField getFtxtDPI() {
         return ftxtDPI;
+    }
+
+    public ObservableList<Usuario> getUserListObservable() {
+        return userListObservable;
+    }
+
+    public void setUserListObservable(ObservableList<Usuario> userListObservable) {
+        this.userListObservable = userListObservable;
+    }
+    
+    public void reloadList(){
+        CRUD<Usuario> userDAO = new UsuarioDAOImpl();
+        userList = userDAO.getListado();
+        this.userListObservable.clear();
+        this.userListObservable.addAll(userList);
     }
 
 }
