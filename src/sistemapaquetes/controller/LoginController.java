@@ -75,8 +75,6 @@ public class LoginController implements ActionListener{
                     
                 case 1:
                     login.dispose();
-                    JOptionPane.showMessageDialog(null, "Login correcto", "Inicio", 
-                    JOptionPane.INFORMATION_MESSAGE);
                     limpiarCampos();
                     adminView = new AdminView();
                     adminC = new AdminUIController(adminView);

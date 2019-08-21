@@ -12,8 +12,8 @@ import sistemapaquetes.ui.administradorUI.AdminView;
  */
 public class AdminUIController implements ActionListener{
     private AdminView adminUI;
-    private AddUserController addUserC;
-    private AddUserView addUserV;
+    private AddUserView addUserV = new AddUserView();
+    private AddUserController addUserC = new AddUserController(addUserV);
 
     public AdminUIController(AdminView adminUI) {
         this.adminUI = adminUI;
@@ -31,8 +31,6 @@ public class AdminUIController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (adminUI.getItmAddUser() == e.getSource()) {
-            addUserV = new AddUserView();
-            addUserC = new AddUserController(addUserV);
             addUserC.iniciar(adminUI.getDeskAdminFrame());
         }
     }

@@ -48,8 +48,28 @@ public class UsuarioDAOImpl implements UsuarioDAO{
     }
 
     @Override
-    public Usuario getPorId(int DPI) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Usuario getObject(Object DPI) {
+        Usuario u = new Usuario();//sera posible usar un usuario global
+        try {
+            String sql = "SELECT * FROM Usuario WHERE DPI = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, (String)DPI);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                u.setDPI(rs.getString("DPI"));
+                u.setNombre(rs.getString("Nombre"));
+                u.setTipo(rs.getByte("Tipo"));
+                u.setEstado(rs.getByte("Estado"));
+                u.setPassword(rs.getString("Password"));
+                u.setNombreUsuario(rs.getString("NombreUsuario"));
+            }
+            ps.close();
+            ps = null;
+        } catch (SQLException ex) {
+            System.out.println("No se pudo leer el usuario");
+            ex.printStackTrace();
+        }
+        return u;
     }
 
     @Override
@@ -98,5 +118,4 @@ public class UsuarioDAOImpl implements UsuarioDAO{
     public void delete(int id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
 }

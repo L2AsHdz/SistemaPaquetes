@@ -55,7 +55,6 @@ public class AddUserView extends javax.swing.JInternalFrame {
         cbTipoUsuario = new javax.swing.JComboBox<>();
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
-        btnDeshabilitar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -81,11 +80,11 @@ public class AddUserView extends javax.swing.JInternalFrame {
 
         btnUpdate.setText("Actualizar");
 
-        btnDeshabilitar.setText("Deshabilitar");
-
         btnLimpiar.setText("Limpiar");
 
         btnCerrar.setText("Cerrar");
+
+        tblUsuarios.setCellSelectionEnabled(true);
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${userListObservable}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tblUsuarios);
@@ -128,12 +127,11 @@ public class AddUserView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAdd)
                         .addGap(18, 18, 18)
                         .addComponent(btnUpdate)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDeshabilitar)
                         .addGap(18, 18, 18)
                         .addComponent(btnLimpiar)
                         .addGap(18, 18, 18)
@@ -159,9 +157,8 @@ public class AddUserView extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbTipoUsuario, 0, 120, Short.MAX_VALUE)
-                            .addComponent(ftxtDPI)))
-                    .addComponent(jScrollPane1))
-                .addContainerGap(26, Short.MAX_VALUE))
+                            .addComponent(ftxtDPI))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +185,6 @@ public class AddUserView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(btnUpdate)
-                    .addComponent(btnDeshabilitar)
                     .addComponent(btnLimpiar)
                     .addComponent(btnCerrar))
                 .addGap(18, 18, 18)
@@ -205,7 +201,6 @@ public class AddUserView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton btnDeshabilitar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cbTipoUsuario;
@@ -237,10 +232,6 @@ public class AddUserView extends javax.swing.JInternalFrame {
 
     public JButton getBtnCerrar() {
         return btnCerrar;
-    }
-
-    public JButton getBtnDeshabilitar() {
-        return btnDeshabilitar;
     }
 
     public JButton getBtnLimpiar() {
