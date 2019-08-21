@@ -5,18 +5,15 @@
  */
 package sistemapaquetes.ui.administradorUI;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
-import sistemapaquetes.dao.CRUD;
-import sistemapaquetes.dao.UsuarioDAOImpl;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import sistemapaquetes.model.ListasObservables;
 import sistemapaquetes.model.Usuario;
 
 /**
@@ -24,15 +21,15 @@ import sistemapaquetes.model.Usuario;
  * @author asael
  */
 public class AddUserView extends javax.swing.JInternalFrame {
-    
-    private List<Usuario> userList = new ArrayList();
+    private ListasObservables observableList;
     private ObservableList<Usuario> userListObservable;
 
     /**
      * Creates new form AddUserIFrame
      */
     public AddUserView() {
-        userListObservable = ObservableCollections.observableList(userList);
+        observableList = ListasObservables.getInstance();
+        userListObservable = observableList.getUserListObservable();
         initComponents();
     }
 
@@ -73,6 +70,8 @@ public class AddUserView extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Tipo Usuario");
 
+        AutoCompleteDecorator.decorate(cbTipoUsuario);
+        cbTipoUsuario.setEditable(true);
         cbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Operador", "Recepcionista" }));
         cbTipoUsuario.setSelectedIndex(-1);
 
@@ -221,7 +220,8 @@ public class AddUserView extends javax.swing.JInternalFrame {
     @Override
     public void setVisible(boolean visibility){
         if (visibility) {
-            reloadList();
+            //reloadList();
+            observableList.reloadListados();
         }
         super.setVisible(visibility);
     }
@@ -272,13 +272,6 @@ public class AddUserView extends javax.swing.JInternalFrame {
 
     public void setUserListObservable(ObservableList<Usuario> userListObservable) {
         this.userListObservable = userListObservable;
-    }
-    
-    public void reloadList(){
-        CRUD<Usuario> userDAO = new UsuarioDAOImpl();
-        userList = userDAO.getListado();
-        this.userListObservable.clear();
-        this.userListObservable.addAll(userList);
     }
 
 }

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import sistemapaquetes.model.Conexion;
 import sistemapaquetes.model.Usuario;
 
@@ -15,7 +16,17 @@ import sistemapaquetes.model.Usuario;
  * @author asael
  */
 public class UsuarioDAOImpl implements UsuarioDAO{
+    private static UsuarioDAOImpl userDAO = null;
     private Connection conexion = Conexion.getConexion();
+    
+    private UsuarioDAOImpl(){}
+    
+    public static UsuarioDAOImpl getUserDAO(){
+        if (userDAO == null) {
+            userDAO = new UsuarioDAOImpl();
+        }
+        return userDAO;
+    }
 
     //Decuelve un listado de Usuarios
     @Override
@@ -63,6 +74,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
                 u.setPassword(rs.getString("Password"));
                 u.setNombreUsuario(rs.getString("NombreUsuario"));
             }
+            System.out.println("Listado obtenido de la BD");
             ps.close();
             ps = null;
         } catch (SQLException ex) {
@@ -106,6 +118,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
             ps.setString(4, u.getPassword());
             ps.setString(5, u.getDPI());
             ps.executeUpdate();
+            System.out.println("Usuario actualizado");
             ps.close();
             ps=null;
         } catch (SQLException ex) {
@@ -117,5 +130,24 @@ public class UsuarioDAOImpl implements UsuarioDAO{
     @Override
     public void delete(int id) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void disableUser(String DPI) {
+        try {
+            String sql = "UPDATE Usuario SET Estado = ? WHERE DPI = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, 0);
+            ps.setString(2, DPI);
+            ps.executeUpdate();
+            System.out.println("Usuario deshabilitado");
+            JOptionPane.showMessageDialog(null, "Usuario con DPI: "+DPI+
+            " fue deshabilitado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            ps.close();
+            ps=null;
+        } catch (SQLException ex) {
+            System.out.println("No se deshabilito el usuario");
+            ex.printStackTrace();
+        } 
     }
 }

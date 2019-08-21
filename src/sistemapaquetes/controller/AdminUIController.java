@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import sistemapaquetes.ui.administradorUI.AddUserView;
 import sistemapaquetes.ui.administradorUI.AdminView;
+import sistemapaquetes.ui.administradorUI.DisableUserView;
 
 /**
  *
@@ -12,8 +13,10 @@ import sistemapaquetes.ui.administradorUI.AdminView;
  */
 public class AdminUIController implements ActionListener{
     private AdminView adminUI;
+    private DisableUserView disableUserV = new DisableUserView();
     private AddUserView addUserV = new AddUserView();
     private AddUserController addUserC = new AddUserController(addUserV);
+    private DisableUserController disableUserC = new DisableUserController(disableUserV);
 
     public AdminUIController(AdminView adminUI) {
         this.adminUI = adminUI;
@@ -32,6 +35,8 @@ public class AdminUIController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (adminUI.getItmAddUser() == e.getSource()) {
             addUserC.iniciar(adminUI.getDeskAdminFrame());
+        }else if (adminUI.getItmDeshabilitarUser() == e.getSource()) {
+            disableUserC.iniciar(adminUI.getDeskAdminFrame());
         }
     }
 }

@@ -22,7 +22,7 @@ public class LoginController implements ActionListener{
 
     public LoginController(LoginView log) {
         this.login = log;
-        userDAO = new UsuarioDAOImpl();
+        userDAO = UsuarioDAOImpl.getUserDAO();
         login.getBtnLogin().addActionListener(this);
         login.getBtnSalir().addActionListener(this);
     }

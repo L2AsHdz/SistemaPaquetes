@@ -8,6 +8,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import sistemapaquetes.dao.CRUD;
 import sistemapaquetes.dao.UsuarioDAOImpl;
+import sistemapaquetes.model.ListasObservables;
 import sistemapaquetes.model.Usuario;
 import sistemapaquetes.ui.administradorUI.AddUserView;
 
@@ -21,10 +22,11 @@ public class AddUserController implements ActionListener, MouseListener {
     private Usuario usuario;
     private CRUD<Usuario> userDAO;
     private String dpiTemp = "";
+    private ListasObservables list = ListasObservables.getInstance();
 
     public AddUserController(AddUserView addUser) {
         this.addUserView = addUser;
-        userDAO = new UsuarioDAOImpl();
+        userDAO = UsuarioDAOImpl.getUserDAO();
         addUserView.getBtnAdd().addActionListener(this);
         addUserView.getBtnCerrar().addActionListener(this);
         addUserView.getBtnLimpiar().addActionListener(this);
@@ -64,7 +66,8 @@ public class AddUserController implements ActionListener, MouseListener {
             if (validarDatos(DPI, nombre, nombreUsuario, tipo, pass)) {
                 nuevoUsuario(DPI, nombre, nombreUsuario, tipo, pass);
                 userDAO.create(usuario);
-                addUserView.reloadList();
+                list.reloadListados();
+                //addUserView.reloadList();
             }
             limpiarCampos();
         } else if (addUserView.getBtnCerrar() == e.getSource()) {
@@ -83,7 +86,8 @@ public class AddUserController implements ActionListener, MouseListener {
             if (validarDatos(DPI, nombre, nombreUsuario, tipo, pass)) {
                 nuevoUsuario(DPI, nombre, nombreUsuario, tipo, pass);
                 userDAO.update(usuario);
-                addUserView.reloadList();
+                list.reloadListados();
+                //addUserView.reloadList();
             }
             limpiarCampos();
         }
