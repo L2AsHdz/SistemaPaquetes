@@ -12,12 +12,6 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String nit, String nombre, String direccion) {
-        this.nit = nit;
-        this.nombre = nombre;
-        this.direccion = direccion;
-    }
-
     public String getNit() {
         return nit;
     }

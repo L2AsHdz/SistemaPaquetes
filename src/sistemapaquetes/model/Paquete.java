@@ -16,16 +16,6 @@ public class Paquete {
     public Paquete() {
     }
 
-    public Paquete(int id, String nombre, String descripcion, float peso, byte estadoRetiro, byte priorizado, int idRuta) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.peso = peso;
-        this.estadoRetiro = estadoRetiro;
-        this.priorizado = priorizado;
-        this.idRuta = idRuta;
-    }
-
     public int getId() {
         return id;
     }

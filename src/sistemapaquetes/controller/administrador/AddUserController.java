@@ -25,13 +25,13 @@ public class AddUserController implements ActionListener, MouseListener {
     private ListasObservables list = ListasObservables.getInstance();
 
     public AddUserController(AddUserView addUser) {
-        this.addUserView = addUser;
         userDAO = UsuarioDAOImpl.getUserDAO();
-        addUserView.getBtnAdd().addActionListener(this);
-        addUserView.getBtnCerrar().addActionListener(this);
-        addUserView.getBtnLimpiar().addActionListener(this);
-        addUserView.getBtnUpdate().addActionListener(this);
-        addUserView.getTblUsuarios().addMouseListener(this);
+        this.addUserView = addUser;
+        this.addUserView.getBtnAdd().addActionListener(this);
+        this.addUserView.getBtnCerrar().addActionListener(this);
+        this.addUserView.getBtnLimpiar().addActionListener(this);
+        this.addUserView.getBtnUpdate().addActionListener(this);
+        this.addUserView.getTblUsuarios().addMouseListener(this);
     }
 
     public void iniciar(JDesktopPane desk) {
@@ -107,6 +107,7 @@ public class AddUserController implements ActionListener, MouseListener {
         addUserView.getTxtPass().setText("");
         addUserView.getCbTipoUsuario().setSelectedIndex(-1);
         addUserView.getTxtNombre().requestFocus();
+        addUserView.getBtnUpdate().setEnabled(false);
     }
 
     private void nuevoUsuario(String DPI, String nombre, String nombreUsuario, byte tipo, String pass) {
@@ -128,6 +129,7 @@ public class AddUserController implements ActionListener, MouseListener {
         addUserView.getTxtPass().setText(usuario.getPassword());
         addUserView.getFtxtDPI().setText(usuario.getDPI());
         addUserView.getCbTipoUsuario().setSelectedItem(usuario.getTipoN());
+        addUserView.getBtnUpdate().setEnabled(true);
     }
 
     @Override

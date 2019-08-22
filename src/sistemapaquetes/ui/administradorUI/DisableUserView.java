@@ -25,7 +25,7 @@ public class DisableUserView extends javax.swing.JInternalFrame {
      */
     public DisableUserView() {
         observableList = ListasObservables.getInstance();
-        dpiListObservable = observableList.getDpiListObservable();
+        dpiListObservable = observableList.getDpiObservableList();
         initComponents();
     }
 

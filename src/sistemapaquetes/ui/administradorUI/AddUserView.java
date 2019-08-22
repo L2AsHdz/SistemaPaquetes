@@ -29,7 +29,7 @@ public class AddUserView extends javax.swing.JInternalFrame {
      */
     public AddUserView() {
         observableList = ListasObservables.getInstance();
-        userListObservable = observableList.getUserListObservable();
+        userListObservable = observableList.getUserObservableList();
         initComponents();
     }
 
@@ -78,6 +78,7 @@ public class AddUserView extends javax.swing.JInternalFrame {
         btnAdd.setText("Agregar");
 
         btnUpdate.setText("Actualizar");
+        btnUpdate.setEnabled(false);
 
         btnLimpiar.setText("Limpiar");
 

@@ -12,12 +12,6 @@ public class Destino {
     public Destino() {
     }
 
-    public Destino(int id, String nombre, float cuotaDestino) {
-        this.id = id;
-        this.nombre = nombre;
-        this.cuotaDestino = cuotaDestino;
-    }
-
     public int getId() {
         return id;
     }

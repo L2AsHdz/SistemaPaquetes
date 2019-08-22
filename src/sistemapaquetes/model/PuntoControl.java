@@ -16,16 +16,6 @@ public class PuntoControl {
     public PuntoControl() {
     }
 
-    public PuntoControl(int numero, String nombre, int idRuta, int limitePaquetes, String DPIOperador, float tarifaOperacion, float tarifaOperacionGlobal) {
-        this.numero = numero;
-        this.nombre = nombre;
-        this.idRuta = idRuta;
-        this.limitePaquetes = limitePaquetes;
-        this.DPIOperador = DPIOperador;
-        this.tarifaOperacion = tarifaOperacion;
-        this.tarifaOperacionGlobal = tarifaOperacionGlobal;
-    }
-
     public int getNumero() {
         return numero;
     }

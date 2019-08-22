@@ -9,17 +9,11 @@ public class Ruta {
     private String nombre;
     private String descripcion;
     private byte estado;
+    private String estadoS;
     private int idDestino;
+    private String nombreDestino;
 
     public Ruta() {
-    }
-
-    public Ruta(int id, String nombre, String descripcion, byte estado, int idDestino) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.estado = estado;
-        this.idDestino = idDestino;
     }
 
     public int getId() {
@@ -52,6 +46,22 @@ public class Ruta {
 
     public void setEstado(byte estado) {
         this.estado = estado;
+        setEstadoS();
+    }
+    
+    public void setEstadoS() {
+        switch (estado) {
+            case 0:
+                this.estadoS = "Deshabilitado";
+                break;
+            case 1:
+                this.estadoS ="Activo";
+                break;
+        }
+    }
+
+    public String getEstadoS() {
+        return estadoS;
     }
 
     public int getIdDestino() {
@@ -60,6 +70,14 @@ public class Ruta {
 
     public void setIdDestino(int idDestino) {
         this.idDestino = idDestino;
+    }
+
+    public String getNombreDestino() {
+        return nombreDestino;
+    }
+
+    public void setNombreDestino(String nombreDestino) {
+        this.nombreDestino = nombreDestino;
     }
     
 }

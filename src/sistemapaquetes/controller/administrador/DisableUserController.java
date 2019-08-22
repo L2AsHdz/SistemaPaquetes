@@ -19,8 +19,8 @@ public class DisableUserController implements ActionListener {
     private ListasObservables list = ListasObservables.getInstance();
 
     public DisableUserController(DisableUserView disableUserV) {
-        this.disableUserV = disableUserV;
         this.userDAO = UsuarioDAOImpl.getUserDAO();
+        this.disableUserV = disableUserV;
         this.disableUserV.getBtnDeshabilitar().addActionListener(this);
         this.disableUserV.getBtnCerrar().addActionListener(this);
     }

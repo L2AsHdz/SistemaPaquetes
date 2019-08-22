@@ -25,8 +25,8 @@ public class DestinoController implements ActionListener, MouseListener{
     private ListasObservables list = ListasObservables.getInstance();
 
     public DestinoController(DestinoView destinoView) {
-        this.destinoView = destinoView;
         destinoDAO = DestinoDAOImpl.getDestinoDAO();
+        this.destinoView = destinoView;
         this.destinoView.getBtnCrear().addActionListener(this);
         this.destinoView.getBtnActualizar().addActionListener(this);
         this.destinoView.getBtnCerrar().addActionListener(this);
@@ -61,7 +61,7 @@ public class DestinoController implements ActionListener, MouseListener{
             if (validarDatos(nombre, cuotaDestino)) {
                 nuevoDestino(nombre, cuotaDestino);
                 destinoDAO.create(destino);
-                list.reloadListDest();
+                list.reloadListadosD();
             }
             limpiarCampos();
             
@@ -80,7 +80,7 @@ public class DestinoController implements ActionListener, MouseListener{
                 nuevoDestino(nombre, cuotaDestino);
                 destino.setId(idTemp);
                 destinoDAO.update(destino);
-                list.reloadListDest();
+                list.reloadListadosD();
             }
             limpiarCampos();
         }
@@ -107,6 +107,7 @@ public class DestinoController implements ActionListener, MouseListener{
         destinoView.getTxtCuotaDestino().setText("");
         destinoView.getTxtnombreDestino().setText("");
         destinoView.getTxtnombreDestino().requestFocus();
+        destinoView.getBtnActualizar().setEnabled(false);
     }
     
     private void nuevoDestino(String nombre, String cuota){
@@ -131,6 +132,7 @@ public class DestinoController implements ActionListener, MouseListener{
         destino = destinoDAO.getObject(idTemp);
         destinoView.getTxtnombreDestino().setText(destino.getNombre());
         destinoView.getTxtCuotaDestino().setText(String.valueOf(destino.getCuotaDestino()));
+        destinoView.getBtnActualizar().setEnabled(true);
     }
     
     @Override

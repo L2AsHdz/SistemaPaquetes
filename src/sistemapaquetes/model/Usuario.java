@@ -14,14 +14,6 @@ public class Usuario {
     private byte estado;
     private String estadoS;
 
-    public Usuario(String DPI, String nombre, byte tipo, byte estado, String password) {
-        this.DPI = DPI;
-        this.nombre = nombre;
-        this.tipo = tipo;
-        this.estado = estado;
-        this.password = password;
-    }
-
     public Usuario() {
     }
 

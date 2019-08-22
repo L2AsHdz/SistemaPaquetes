@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/asael/NetBeansProjects/SistemaPaquetes/src/sistemapaquetes/SistemaPaquetes.java</file>
+            <file>file:/home/asael/NetBeansProjects/SistemaPaquetes/src/sistemapaquetes/ui/administradorUI/AddRutaView.java</file>
+            <file>file:/home/asael/NetBeansProjects/SistemaPaquetes/src/sistemapaquetes/ui/administradorUI/DestinoView.java</file>
+            <file>file:/home/asael/NetBeansProjects/SistemaPaquetes/src/sistemapaquetes/controller/administrador/AdminUIController.java</file>
         </group>
     </open-files>
 </project-private>

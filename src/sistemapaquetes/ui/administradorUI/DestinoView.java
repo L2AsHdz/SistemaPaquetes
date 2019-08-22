@@ -26,7 +26,7 @@ public class DestinoView extends javax.swing.JInternalFrame {
      */
     public DestinoView() {
         observableList = ListasObservables.getInstance();
-        destListObservable = observableList.getDestListObservable();
+        destListObservable = observableList.getDestObservableList();
         initComponents();
     }
 
@@ -60,6 +60,7 @@ public class DestinoView extends javax.swing.JInternalFrame {
         btnCerrar.setText("Cerrar");
 
         btnUpdate.setText("Actualizar");
+        btnUpdate.setEnabled(false);
 
         btnLimpiar.setText("Limpiar");
 
@@ -148,7 +149,7 @@ public class DestinoView extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
     public void setVisible(boolean visibility){
         if (visibility) {
-            observableList.reloadListDest();
+            observableList.reloadListadosD();
         }
         super.setVisible(visibility);
     }
