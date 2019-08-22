@@ -8,8 +8,10 @@ public class PuntoControl {
     private int numero;
     private String nombre;
     private int idRuta;
+    private String nombreRuta;
     private int limitePaquetes;
     private String DPIOperador;
+    private String nombreOperador;
     private float tarifaOperacion;
     private float tarifaOperacionGlobal;
 
@@ -40,6 +42,14 @@ public class PuntoControl {
         this.idRuta = idRuta;
     }
 
+    public String getNombreRuta() {
+        return nombreRuta;
+    }
+
+    public void setNombreRuta(String nombreRuta) {
+        this.nombreRuta = nombreRuta;
+    }
+
     public int getLimitePaquetes() {
         return limitePaquetes;
     }
@@ -52,8 +62,16 @@ public class PuntoControl {
         return DPIOperador;
     }
 
-    public void setIdOperador(String DPIOperador) {
+    public void setDPIOperador(String DPIOperador) {
         this.DPIOperador = DPIOperador;
+    }
+
+    public String getNombreOperador() {
+        return nombreOperador;
+    }
+
+    public void setNombreOperador(String nombreOperador) {
+        this.nombreOperador = nombreOperador;
     }
 
     public float getTarifaOperacion() {

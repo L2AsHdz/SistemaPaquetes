@@ -1,4 +1,4 @@
-package sistemapaquetes.dao;
+package sistemapaquetes.dao.usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

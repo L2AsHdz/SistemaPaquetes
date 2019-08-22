@@ -1,5 +1,6 @@
-package sistemapaquetes.dao;
+package sistemapaquetes.dao.destino;
 
+import sistemapaquetes.dao.CRUD;
 import sistemapaquetes.model.Destino;
 
 /**

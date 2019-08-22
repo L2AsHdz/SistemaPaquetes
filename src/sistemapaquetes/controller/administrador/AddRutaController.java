@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import sistemapaquetes.dao.CRUD;
-import sistemapaquetes.dao.RutaDAOImpl;
+import sistemapaquetes.dao.ruta.RutaDAOImpl;
 import sistemapaquetes.model.ListasObservables;
 import sistemapaquetes.model.Ruta;
 import sistemapaquetes.ui.administradorUI.AddRutaView;

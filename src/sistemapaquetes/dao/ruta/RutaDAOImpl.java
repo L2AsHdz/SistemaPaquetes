@@ -1,5 +1,6 @@
-package sistemapaquetes.dao;
+package sistemapaquetes.dao.ruta;
 
+import sistemapaquetes.dao.destino.DestinoDAOImpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import sistemapaquetes.dao.CRUD;
 import sistemapaquetes.model.Conexion;
 import sistemapaquetes.model.Destino;
 import sistemapaquetes.model.Ruta;

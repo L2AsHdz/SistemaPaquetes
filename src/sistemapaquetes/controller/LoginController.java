@@ -2,7 +2,7 @@ package sistemapaquetes.controller;
 
 import sistemapaquetes.controller.administrador.AdminUIController;
 import sistemapaquetes.dao.CRUD;
-import sistemapaquetes.dao.UsuarioDAOImpl;
+import sistemapaquetes.dao.usuario.UsuarioDAOImpl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

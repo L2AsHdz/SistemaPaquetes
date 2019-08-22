@@ -1,5 +1,6 @@
-package sistemapaquetes.dao;
+package sistemapaquetes.dao.ruta;
 
+import sistemapaquetes.dao.CRUD;
 import sistemapaquetes.model.Ruta;
 
 /**

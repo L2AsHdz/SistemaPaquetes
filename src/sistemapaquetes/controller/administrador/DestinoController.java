@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import sistemapaquetes.dao.CRUD;
-import sistemapaquetes.dao.DestinoDAOImpl;
+import sistemapaquetes.dao.destino.DestinoDAOImpl;
 import sistemapaquetes.model.Destino;
 import sistemapaquetes.model.ListasObservables;
 import sistemapaquetes.ui.administradorUI.DestinoView;

@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import sistemapaquetes.dao.CRUD;
-import sistemapaquetes.dao.UsuarioDAOImpl;
+import sistemapaquetes.dao.usuario.UsuarioDAOImpl;
 import sistemapaquetes.model.ListasObservables;
 import sistemapaquetes.model.Usuario;
 import sistemapaquetes.ui.administradorUI.AddUserView;

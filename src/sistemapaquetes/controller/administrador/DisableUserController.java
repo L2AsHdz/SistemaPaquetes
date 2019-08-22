@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
-import sistemapaquetes.dao.UsuarioDAOImpl;
+import sistemapaquetes.dao.usuario.UsuarioDAOImpl;
 import sistemapaquetes.model.ListasObservables;
 import sistemapaquetes.ui.administradorUI.DisableUserView;
 

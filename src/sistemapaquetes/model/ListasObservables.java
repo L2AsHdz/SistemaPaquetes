@@ -5,9 +5,9 @@ import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import sistemapaquetes.dao.CRUD;
-import sistemapaquetes.dao.DestinoDAOImpl;
-import sistemapaquetes.dao.RutaDAOImpl;
-import sistemapaquetes.dao.UsuarioDAOImpl;
+import sistemapaquetes.dao.destino.DestinoDAOImpl;
+import sistemapaquetes.dao.ruta.RutaDAOImpl;
+import sistemapaquetes.dao.usuario.UsuarioDAOImpl;
 
 /**
  *
