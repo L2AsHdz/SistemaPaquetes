@@ -116,7 +116,7 @@ public class AddRutaController implements ActionListener, MouseListener{
         ruta = rutaDAO.getObject(idTemp);
         addRutaView.getTxtnombre().setText(ruta.getNombre());
         addRutaView.getTxtComent().setText(ruta.getDescripcion());
-        addRutaView.getCbDestino().setSelectedIndex(ruta.getIdDestino());
+        addRutaView.getCbDestino().setSelectedIndex(ruta.getIdDestino()-1);
         addRutaView.getBtnUpdate().setEnabled(true);
     }
 

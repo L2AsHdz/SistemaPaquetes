@@ -1,6 +1,5 @@
 package sistemapaquetes.dao.ruta;
 
-import sistemapaquetes.dao.destino.DestinoDAOImpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,9 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import sistemapaquetes.dao.CRUD;
 import sistemapaquetes.model.Conexion;
-import sistemapaquetes.model.Destino;
 import sistemapaquetes.model.Ruta;
 
 /**
@@ -20,7 +17,6 @@ import sistemapaquetes.model.Ruta;
 public class RutaDAOImpl implements RutaDAO{
     
     private static RutaDAOImpl rutaDAO = null;
-    private CRUD<Destino> destinoDAO = DestinoDAOImpl.getDestinoDAO();
     private Connection conexion = Conexion.getConexion();
 
     private RutaDAOImpl(){}
@@ -37,7 +33,8 @@ public class RutaDAOImpl implements RutaDAO{
         List<Ruta> rutas = null;
         
         try {
-            String sql = "SELECT * FROM Ruta";
+            String sql = "SELECT r.*, d.Nombre AS NombreDestino FROM Ruta AS r "
+            + "INNER JOIN Destino AS d ON r.IdDestino=d.Id;";
             Statement declaracion = conexion.createStatement();
             
             rutas = new ArrayList();
@@ -47,9 +44,8 @@ public class RutaDAOImpl implements RutaDAO{
                 ruta.setId(rs.getInt("Id"));
                 ruta.setNombre(rs.getString("Nombre"));
                 ruta.setEstado(rs.getByte("Estado"));
-                ruta.setDescripcion(rs.getString("Descripcion"));
                 ruta.setIdDestino(rs.getInt("IdDestino"));
-                ruta.setNombreDestino(destinoDAO.getObject(rs.getInt("IdDestino")).getNombre());
+                ruta.setNombreDestino(rs.getString("NombreDestino"));
                 rutas.add(ruta);
             }
             System.out.println("Listado de Rutas Obtenido");

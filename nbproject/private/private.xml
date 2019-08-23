@@ -6,6 +6,7 @@
             <file>file:/home/asael/NetBeansProjects/SistemaPaquetes/src/sistemapaquetes/ui/administradorUI/AddPuntoControlView.java</file>
             <file>file:/home/asael/NetBeansProjects/SistemaPaquetes/src/sistemapaquetes/dao/puntocontrol/PuntoControlDAOImpl.java</file>
             <file>file:/home/asael/NetBeansProjects/SistemaPaquetes/src/sistemapaquetes/model/PuntoControl.java</file>
+            <file>file:/home/asael/NetBeansProjects/SistemaPaquetes/src/sistemapaquetes/controller/administrador/AddRutaController.java</file>
         </group>
     </open-files>
 </project-private>
