@@ -33,7 +33,7 @@ public class PuntoControlDAOImpl implements PuntoControlDAO{
         List<PuntoControl> puntosC = null;
         
         try {
-            String sql = "SELECT pc.Numero AS NumeroPC, pc.Nombre AS NombrePC, "
+            String sql = "SELECT pc.IdRuta, pc.Numero AS NumeroPC, pc.Nombre AS NombrePC, "
                     + "pc.LimitePaquetes, u.Nombre AS Operador, r.Nombre AS Ruta "
                     + "FROM PuntoControl AS pc INNER JOIN Usuario AS u ON pc.DPIOperador=u.DPI "
                     + "INNER JOIN Ruta AS r ON pc.IdRuta=r.Id ORDER BY pc.IdRuta, pc.Numero ASC";
@@ -43,6 +43,7 @@ public class PuntoControlDAOImpl implements PuntoControlDAO{
             ResultSet rs = declaracion.executeQuery(sql);
             while (rs.next()) {
                 PuntoControl puntoC = new PuntoControl();
+                puntoC.setIdRuta(rs.getInt("IdRuta"));
                 puntoC.setNumero(rs.getInt("NumeroPC"));
                 puntoC.setNombre(rs.getString("NombrePC"));
                 puntoC.setLimitePaquetes(rs.getInt("LimitePaquetes"));
@@ -141,6 +142,49 @@ public class PuntoControlDAOImpl implements PuntoControlDAO{
             ex.printStackTrace();
         }
         return pc;
+    }
+
+    @Override
+    public int getNoPuntosInRuta(int idRuta) {
+        int valor = 0;
+        try {
+            String sql = "SELECT COUNT(*) FROM PuntoControl WHERE IdRuta = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idRuta);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            valor = rs.getInt(1);
+            System.out.println("Numero de puntos de control obtenido");
+            ps.close();
+            ps = null;
+        } catch (SQLException ex) {
+            System.out.println("No se pudo leer la DB");
+            ex.printStackTrace();
+        }
+        return valor;
+    }
+
+    @Override
+    public int getLastPCNumber(int idRuta) {
+        int valor = 0;
+        try {
+            String sql = "SELECT Numero FROM PuntoControl WHERE IdRuta = ?  "
+                    + "ORDER BY IdRuta, Numero DESC LIMIT 1";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idRuta);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                valor = rs.getInt(1);
+            }
+            
+            System.out.println("Numero de puntos de control obtenido");
+            ps.close();
+            ps = null;
+        } catch (SQLException ex) {
+            System.out.println("No se pudo leer la DB");
+            ex.printStackTrace();
+        }
+        return valor;
     }
     
 }

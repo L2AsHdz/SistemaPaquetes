@@ -63,7 +63,7 @@ public class AddPuntoControlView extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPuntosControl = new javax.swing.JTable();
 
-        setTitle("Añadir Punto de Control");
+        setTitle("Puntos de Control");
 
         jLabel1.setText("Nombre Punto Control");
 
@@ -92,6 +92,7 @@ public class AddPuntoControlView extends javax.swing.JInternalFrame {
         btnCrear.setText("Crear");
 
         btnUpdate.setText("Actualizar");
+        btnUpdate.setEnabled(false);
 
         btnLimpiar.setText("Limpiar");
 
@@ -99,7 +100,11 @@ public class AddPuntoControlView extends javax.swing.JInternalFrame {
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${puntosCListObservable}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tblPuntosControl);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${numero}"));
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idRuta}"));
+        columnBinding.setColumnName("Id Ruta");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${numero}"));
         columnBinding.setColumnName("Numero");
         columnBinding.setColumnClass(Integer.class);
         columnBinding.setEditable(false);
@@ -108,7 +113,7 @@ public class AddPuntoControlView extends javax.swing.JInternalFrame {
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${limitePaquetes}"));
-        columnBinding.setColumnName("Limite Paquetes");
+        columnBinding.setColumnName("Limite");
         columnBinding.setColumnClass(Integer.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreOperador}"));

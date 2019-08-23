@@ -9,4 +9,6 @@ import sistemapaquetes.model.PuntoControl;
  */
 public interface PuntoControlDAO extends CRUD<PuntoControl>{
     public PuntoControl getPuntoControl(int numPC, int idRuta);
+    public int getNoPuntosInRuta(int idRuta);
+    public int getLastPCNumber(int idRuta);
 }
