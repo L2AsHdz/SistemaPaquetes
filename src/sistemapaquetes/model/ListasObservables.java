@@ -7,6 +7,7 @@ import org.jdesktop.observablecollections.ObservableList;
 import sistemapaquetes.dao.CRUD;
 import sistemapaquetes.dao.destino.DestinoDAOImpl;
 import sistemapaquetes.dao.precio.PrecioDAOImpl;
+import sistemapaquetes.dao.puntocontrol.PuntoControlDAOImpl;
 import sistemapaquetes.dao.ruta.RutaDAOImpl;
 import sistemapaquetes.dao.usuario.UsuarioDAOImpl;
 
@@ -21,6 +22,7 @@ public class ListasObservables{
     private CRUD<Destino> destinoDAO = DestinoDAOImpl.getDestinoDAO();
     private CRUD<Ruta> rutaDAO = RutaDAOImpl.getRutaDAO();
     private CRUD<PrecioGlobal> precioDAO = PrecioDAOImpl.getPrecioDAO();
+    private CRUD<PuntoControl> puntoCDAO = PuntoControlDAOImpl.getPuntoCDAO();
     
     //listados para Usuarios
     private List<Usuario> userList = new ArrayList();
@@ -29,6 +31,8 @@ public class ListasObservables{
     //listados para DPI de usuarios
     private List<String> dpiList = new ArrayList();
     private ObservableList<String> dpiObservableList;
+    private List<String> dpiOList = new ArrayList();
+    private ObservableList<String> dpiOObservableList;
     
     //listados para Destinos
     private List<Destino> destList = new ArrayList();
@@ -49,16 +53,22 @@ public class ListasObservables{
     //listados para Precios Globales
     private List<PrecioGlobal> preciosList = new ArrayList();
     private ObservableList<PrecioGlobal> preciosObservableList;
+    
+    //listados para puntos de control
+    private List<PuntoControl> puntosCList = new ArrayList();
+    private ObservableList<PuntoControl> puntosCObservableList;
 
     //Constructor privado para evitar instancias nuevas
     private ListasObservables() {
         userObservableList = ObservableCollections.observableList(userList);
         dpiObservableList = ObservableCollections.observableList(dpiList);
+        dpiOObservableList = ObservableCollections.observableList(dpiOList);
         destObservableList = ObservableCollections.observableList(destList);
         nameDestinosObservableList = ObservableCollections.observableList(nameDestinosList);
         rutaObservableList = ObservableCollections.observableList(rutaList);
         nameRutasObservableList = ObservableCollections.observableList(nameRutasList);
         preciosObservableList = ObservableCollections.observableList(preciosList);
+        puntosCObservableList = ObservableCollections.observableList(puntosCList);
     }
     
     //Devuelve la unca instancia del Objeto
@@ -105,6 +115,24 @@ public class ListasObservables{
             }
         }
         //this.dpiListObservable.addAll(dpiList);
+    }
+
+    public ObservableList<String> getDpiOObservableList() {
+        return dpiOObservableList;
+    }
+
+    public void setDpiOObservableList(ObservableList<String> dpiOObservableList) {
+        this.dpiOObservableList = dpiOObservableList;
+    }
+    
+    private void reloadListDPIO(){
+        this.dpiObservableList.clear();
+        userList = userDAO.getListado();
+        for (Usuario u : userList) {
+            if (u.getEstado() == 1 && u.getTipo() == 2) {
+                dpiOObservableList.add(u.getDPI());
+            }
+        }
     }
     /////////////////////////////Fin metodos Lista DPI//////////////////////////
     
@@ -202,9 +230,28 @@ public class ListasObservables{
     
     ////////////////////////Fin metodos listado precios globales////////////////
     
+    ////////////////Metodos para listado Punto Control//////////////////////////
+
+    public ObservableList<PuntoControl> getPuntosCObservableList() {
+        return puntosCObservableList;
+    }
+
+    public void setPuntosCObservableList(ObservableList<PuntoControl> puntosCObservableList) {
+        this.puntosCObservableList = puntosCObservableList;
+    }
+    
+    public void reloadPuntosControl(){
+        puntosCList = puntoCDAO.getListado();
+        puntosCObservableList.clear();
+        puntosCObservableList.addAll(puntosCList);
+    }
+    
+    //////////////////Fin metodos listados puntos de control////////////////////
+    
     public void reloadListadosU(){
         reloadListDPI();
         reloadListUser();
+        reloadListDPIO();
     }
     
     public void reloadListadosD(){

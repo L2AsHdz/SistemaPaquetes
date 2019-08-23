@@ -5,18 +5,34 @@
  */
 package sistemapaquetes.ui.administradorUI;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import org.jdesktop.observablecollections.ObservableList;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import sistemapaquetes.model.ListasObservables;
+import sistemapaquetes.model.PuntoControl;
 
 /**
  *
  * @author asael
  */
 public class AddPuntoControlView extends javax.swing.JInternalFrame {
+    
+    private ListasObservables observableList;
+    private ObservableList<String> nameRListObservable;
+    private ObservableList<String> dpiOListObservable;
+    private ObservableList<PuntoControl> puntosCListObservable;
 
     /**
      * Creates new form AddPuntoControlView
      */
     public AddPuntoControlView() {
+        observableList = ListasObservables.getInstance();
+        nameRListObservable = observableList.getNameRutasObservableList();
+        dpiOListObservable = observableList.getDpiOObservableList();
+        puntosCListObservable = observableList.getPuntosCObservableList();
         initComponents();
     }
 
@@ -28,23 +44,24 @@ public class AddPuntoControlView extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         cbRutas = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtLimitePaquetes = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         cbDPIOperador = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        txtTarifaOperacion = new javax.swing.JTextField();
+        btnCrear = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPuntosControl = new javax.swing.JTable();
 
         setTitle("Añadir Punto de Control");
 
@@ -55,6 +72,10 @@ public class AddPuntoControlView extends javax.swing.JInternalFrame {
         AutoCompleteDecorator.decorate(cbRutas);
         cbRutas.setEditable(true);
 
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${nameRListObservable}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, cbRutas);
+        bindingGroup.addBinding(jComboBoxBinding);
+
         jLabel3.setText("Limite Paquetes");
 
         jLabel4.setText("Operador");
@@ -62,25 +83,45 @@ public class AddPuntoControlView extends javax.swing.JInternalFrame {
         AutoCompleteDecorator.decorate(cbDPIOperador);
         cbDPIOperador.setEditable(true);
 
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${dpiOListObservable}");
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, cbDPIOperador);
+        bindingGroup.addBinding(jComboBoxBinding);
+
         jLabel5.setText("Tarifa de Operacion");
 
-        jButton1.setText("Crear");
+        btnCrear.setText("Crear");
 
-        jButton2.setText("Actualizar");
+        btnUpdate.setText("Actualizar");
 
-        jButton3.setText("Limpiar");
+        btnLimpiar.setText("Limpiar");
 
-        jButton4.setText("Cerrar");
+        btnCerrar.setText("Cerrar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${puntosCListObservable}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tblPuntosControl);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${numero}"));
+        columnBinding.setColumnName("Numero");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
+        columnBinding.setColumnName("Nombre");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${limitePaquetes}"));
+        columnBinding.setColumnName("Limite Paquetes");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreOperador}"));
+        columnBinding.setColumnName("Operador");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreRuta}"));
+        columnBinding.setColumnName("Ruta");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane1.setViewportView(tblPuntosControl);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,33 +131,33 @@ public class AddPuntoControlView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCrear)
+                        .addGap(41, 41, 41)
+                        .addComponent(btnUpdate)
+                        .addGap(35, 35, 35)
+                        .addComponent(btnLimpiar)
+                        .addGap(36, 36, 36)
+                        .addComponent(btnCerrar))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                            .addComponent(txtNombre)
+                            .addComponent(txtLimitePaquetes)
+                            .addComponent(txtTarifaOperacion, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbRutas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbDPIOperador, 0, 160, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                            .addComponent(cbRutas, 0, 185, Short.MAX_VALUE)
+                            .addComponent(cbDPIOperador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,50 +165,127 @@ public class AddPuntoControlView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(cbRutas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLimitePaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(cbDPIOperador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTarifaOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnCrear)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnLimpiar)
+                    .addComponent(btnCerrar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cbDPIOperador;
     private javax.swing.JComboBox<String> cbRutas;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable tblPuntosControl;
+    private javax.swing.JTextField txtLimitePaquetes;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTarifaOperacion;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setVisible(boolean visibility){
+        if (visibility) {
+            observableList.reloadPuntosControl();
+            observableList.reloadListadosU();
+            observableList.reloadListadosR();
+        }
+        super.setVisible(visibility);
+    }
+    
+    public JButton getBtnCerrar() {
+        return btnCerrar;
+    }
+
+    public JButton getBtnCrear() {
+        return btnCrear;
+    }
+
+    public JButton getBtnLimpiar() {
+        return btnLimpiar;
+    }
+
+    public JButton getBtnUpdate() {
+        return btnUpdate;
+    }
+
+    public JComboBox<String> getCbDPIOperador() {
+        return cbDPIOperador;
+    }
+
+    public JComboBox<String> getCbRutas() {
+        return cbRutas;
+    }
+
+    public JTable getTblPuntosControl() {
+        return tblPuntosControl;
+    }
+
+    public JTextField getTxtLimitePaquetes() {
+        return txtLimitePaquetes;
+    }
+
+    public JTextField getTxtNombre() {
+        return txtNombre;
+    }
+
+    public JTextField getTxtTarifaOperacion() {
+        return txtTarifaOperacion;
+    }
+
+    public ObservableList<String> getNameRListObservable() {
+        return nameRListObservable;
+    }
+
+    public void setNameRListObservable(ObservableList<String> nameRListObservable) {
+        this.nameRListObservable = nameRListObservable;
+    }
+
+    public ObservableList<String> getDpiOListObservable() {
+        return dpiOListObservable;
+    }
+
+    public void setDpiOListObservable(ObservableList<String> dpiOListObservable) {
+        this.dpiOListObservable = dpiOListObservable;
+    }
+
+    public ObservableList<PuntoControl> getPuntosCListObservable() {
+        return puntosCListObservable;
+    }
+
+    public void setPuntosCListObservable(ObservableList<PuntoControl> puntosCListObservable) {
+        this.puntosCListObservable = puntosCListObservable;
+    }
 }

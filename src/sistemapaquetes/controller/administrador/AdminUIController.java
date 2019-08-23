@@ -3,6 +3,7 @@ package sistemapaquetes.controller.administrador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import sistemapaquetes.ui.administradorUI.AddPuntoControlView;
 import sistemapaquetes.ui.administradorUI.AddRutaView;
 import sistemapaquetes.ui.administradorUI.AddUserView;
 import sistemapaquetes.ui.administradorUI.AdminView;
@@ -36,6 +37,10 @@ public class AdminUIController implements ActionListener{
     //Vista y controlador para modificar Precios Globales
     private final PreciosView precioV = new PreciosView();
     private final PreciosController precioC = new PreciosController(precioV);
+    
+    //Vista y controlador para administrar Puntos de control
+    private final AddPuntoControlView puntoV = new AddPuntoControlView();
+    private final AddPuntoControlController puntoC = new AddPuntoControlController(puntoV);
 
     //Constructor del Controlador de la interfaz del Administrador
     public AdminUIController(AdminView adminUI) {
@@ -45,6 +50,7 @@ public class AdminUIController implements ActionListener{
         this.adminUI.getItmDestinos().addActionListener(this);
         this.adminUI.getItmCrearRuta().addActionListener(this);
         this.adminUI.getItmPreciosTarifas().addActionListener(this);
+        this.adminUI.getItmPuntosControl().addActionListener(this);
     }
     
     //Metodo que muestra la interfaz
@@ -68,6 +74,8 @@ public class AdminUIController implements ActionListener{
             rutaC.iniciar(adminUI.getDeskAdminFrame());
         }else if (adminUI.getItmPreciosTarifas() == e.getSource()) {
             precioC.iniciar(adminUI.getDeskAdminFrame());
+        }else if (adminUI.getItmPuntosControl() == e.getSource()) {
+            puntoC.iniciar(adminUI.getDeskAdminFrame());
         }
     }
 }

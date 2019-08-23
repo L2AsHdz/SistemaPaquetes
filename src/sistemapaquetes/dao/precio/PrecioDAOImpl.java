@@ -105,5 +105,25 @@ public class PrecioDAOImpl implements PrecioDAO{
     public void delete(int t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public int getValor(int Id) {
+        int valor = 0;
+        try {
+            String sql = "SELECT Valor FROM PreciosGlobales WHERE Id = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, Id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            valor = rs.getInt("Valor");
+            System.out.println("Valor de Precio global obtenido");
+            ps.close();
+            ps = null;
+        } catch (SQLException ex) {
+            System.out.println("No se pudo leer el usuario");
+            ex.printStackTrace();
+        }
+        return valor;
+    }
     
 }

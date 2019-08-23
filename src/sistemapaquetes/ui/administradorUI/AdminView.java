@@ -40,6 +40,9 @@ public class AdminView extends javax.swing.JFrame {
         itmDestinos = new javax.swing.JMenuItem();
         itmCrearRuta = new javax.swing.JMenuItem();
         itmDisableRuta = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        itmPuntosControl = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         menuPrecios = new javax.swing.JMenu();
         itmPreciosTarifas = new javax.swing.JMenuItem();
 
@@ -81,6 +84,16 @@ public class AdminView extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu4.setText("Puntos de Control");
+
+        itmPuntosControl.setText("Administrar Puntos de control");
+        jMenu4.add(itmPuntosControl);
+
+        jMenuItem2.setText("jMenuItem2");
+        jMenu4.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu4);
+
         menuPrecios.setText("Tarifas");
 
         itmPreciosTarifas.setText("Ver precios y tarifas");
@@ -112,10 +125,13 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmDestinos;
     private javax.swing.JMenuItem itmDisableRuta;
     private javax.swing.JMenuItem itmPreciosTarifas;
+    private javax.swing.JMenuItem itmPuntosControl;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu menuPrecios;
     // End of variables declaration//GEN-END:variables
 
@@ -141,5 +157,9 @@ public class AdminView extends javax.swing.JFrame {
 
     public JMenuItem getItmPreciosTarifas() {
         return itmPreciosTarifas;
+    }
+
+    public JMenuItem getItmPuntosControl() {
+        return itmPuntosControl;
     }
 }

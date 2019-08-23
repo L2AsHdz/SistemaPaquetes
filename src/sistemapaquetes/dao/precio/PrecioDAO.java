@@ -9,4 +9,5 @@ import sistemapaquetes.model.PrecioGlobal;
  */
 public interface PrecioDAO extends CRUD<PrecioGlobal>{
     
+    public int getValor(int Id);
 }
