@@ -109,23 +109,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 
     @Override
     public void update(Usuario u) {
-        try {
-            String sql = "UPDATE Usuario SET Nombre = ?, Tipo = ?, "
-            + "NombreUsuario = ?, Password = ? WHERE DPI = ?";
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setString(1, u.getNombre());
-            ps.setInt(2, u.getTipo());
-            ps.setString(3, u.getNombreUsuario());
-            ps.setString(4, u.getPassword());
-            ps.setString(5, u.getDPI());
-            ps.executeUpdate();
-            System.out.println("Usuario actualizado");
-            ps.close();
-            ps=null;
-        } catch (SQLException ex) {
-            System.out.println("No se actualizo el registro");
-            ex.printStackTrace();
-        } 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -148,6 +132,28 @@ public class UsuarioDAOImpl implements UsuarioDAO{
             ps=null;
         } catch (SQLException ex) {
             System.out.println("No se deshabilito el usuario");
+            ex.printStackTrace();
+        } 
+    }
+
+    @Override
+    public void update(Usuario u, String DPI) {
+        try {
+            String sql = "UPDATE Usuario SET DPI = ?, Nombre = ?, Tipo = ?, "
+            + "NombreUsuario = ?, Password = ? WHERE DPI = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, u.getDPI());
+            ps.setString(2, u.getNombre());
+            ps.setInt(3, u.getTipo());
+            ps.setString(4, u.getNombreUsuario());
+            ps.setString(5, u.getPassword());
+            ps.setString(6, DPI);
+            ps.executeUpdate();
+            System.out.println("Usuario actualizado");
+            ps.close();
+            ps=null;
+        } catch (SQLException ex) {
+            System.out.println("No se actualizo el registro");
             ex.printStackTrace();
         } 
     }

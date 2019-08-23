@@ -51,6 +51,8 @@ public class DestinoView extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDestinos = new javax.swing.JTable();
 
+        setTitle("Destinos");
+
         jLabel1.setText("Nombre Destino");
 
         jLabel2.setText("Cuota Destino");

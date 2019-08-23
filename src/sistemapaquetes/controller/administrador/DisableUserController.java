@@ -42,10 +42,17 @@ public class DisableUserController implements ActionListener {
             String dpi = disableUserV.getCbDPIUsers().getSelectedItem().toString();
             userDAO.disableUser(dpi);
             list.reloadListadosU();
+            limpiarCampos();
         } else if (disableUserV.getBtnCerrar() == e.getSource()) {
             disableUserV.getCbDPIUsers().setSelectedIndex(-1);
             disableUserV.dispose();
+            limpiarCampos();
         }
+    }
+    
+    private void limpiarCampos(){
+        disableUserV.getCbDPIUsers().setSelectedIndex(-1);
+        disableUserV.getCbDPIUsers().requestFocus();
     }
 
 }

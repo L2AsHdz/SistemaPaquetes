@@ -30,6 +30,7 @@ public class AdminView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu3 = new javax.swing.JMenu();
         DeskAdminFrame = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -39,6 +40,10 @@ public class AdminView extends javax.swing.JFrame {
         itmDestinos = new javax.swing.JMenuItem();
         itmCrearRuta = new javax.swing.JMenuItem();
         itmDisableRuta = new javax.swing.JMenuItem();
+        menuPrecios = new javax.swing.JMenu();
+        itmPreciosTarifas = new javax.swing.JMenuItem();
+
+        jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,6 +81,13 @@ public class AdminView extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        menuPrecios.setText("Tarifas");
+
+        itmPreciosTarifas.setText("Ver precios y tarifas");
+        menuPrecios.add(itmPreciosTarifas);
+
+        jMenuBar1.add(menuPrecios);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -99,9 +111,12 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmDeshabilitarUser;
     private javax.swing.JMenuItem itmDestinos;
     private javax.swing.JMenuItem itmDisableRuta;
+    private javax.swing.JMenuItem itmPreciosTarifas;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu menuPrecios;
     // End of variables declaration//GEN-END:variables
 
     public JDesktopPane getDeskAdminFrame() {
@@ -122,5 +137,9 @@ public class AdminView extends javax.swing.JFrame {
 
     public JMenuItem getItmDestinos() {
         return itmDestinos;
+    }
+
+    public JMenuItem getItmPreciosTarifas() {
+        return itmPreciosTarifas;
     }
 }

@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
-import sistemapaquetes.dao.CRUD;
+import sistemapaquetes.dao.usuario.UsuarioDAO;
 import sistemapaquetes.dao.usuario.UsuarioDAOImpl;
 import sistemapaquetes.model.ListasObservables;
 import sistemapaquetes.model.Usuario;
@@ -20,7 +20,7 @@ public class AddUserController implements ActionListener, MouseListener {
 
     private AddUserView addUserView;
     private Usuario usuario;
-    private CRUD<Usuario> userDAO;
+    private UsuarioDAO userDAO;
     private String dpiTemp = "";
     private ListasObservables list = ListasObservables.getInstance();
 
@@ -82,7 +82,7 @@ public class AddUserController implements ActionListener, MouseListener {
 
             if (validarDatos(DPI, nombre, nombreUsuario, tipo, pass)) {
                 nuevoUsuario(DPI, nombre, nombreUsuario, tipo, pass);
-                userDAO.update(usuario);
+                userDAO.update(usuario,dpiTemp);
                 list.reloadListadosU();
                 //addUserView.reloadList();
             }

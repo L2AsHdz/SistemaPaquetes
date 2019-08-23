@@ -50,7 +50,7 @@ public class DestinoController implements ActionListener, MouseListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int id;
+        //int id;
         String nombre;
         String cuotaDestino;
         
@@ -86,7 +86,7 @@ public class DestinoController implements ActionListener, MouseListener{
         }
     }
     
-    public boolean validarDatos(String nombre, String cuota){
+    private boolean validarDatos(String nombre, String cuota){
         boolean validacion = true;
         if (nombre.isEmpty() || cuota.isEmpty()) {
             System.out.println("Hay campos vacios");

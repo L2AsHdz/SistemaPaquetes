@@ -6,6 +6,7 @@ import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import sistemapaquetes.dao.CRUD;
 import sistemapaquetes.dao.destino.DestinoDAOImpl;
+import sistemapaquetes.dao.precio.PrecioDAOImpl;
 import sistemapaquetes.dao.ruta.RutaDAOImpl;
 import sistemapaquetes.dao.usuario.UsuarioDAOImpl;
 
@@ -19,6 +20,7 @@ public class ListasObservables{
     private CRUD<Usuario> userDAO = UsuarioDAOImpl.getUserDAO();
     private CRUD<Destino> destinoDAO = DestinoDAOImpl.getDestinoDAO();
     private CRUD<Ruta> rutaDAO = RutaDAOImpl.getRutaDAO();
+    private CRUD<PrecioGlobal> precioDAO = PrecioDAOImpl.getPrecioDAO();
     
     //listados para Usuarios
     private List<Usuario> userList = new ArrayList();
@@ -43,6 +45,10 @@ public class ListasObservables{
     //listados para nombres de rutas
     private List<String> nameRutasList = new ArrayList();
     private ObservableList<String> nameRutasObservableList;
+    
+    //listados para Precios Globales
+    private List<PrecioGlobal> preciosList = new ArrayList();
+    private ObservableList<PrecioGlobal> preciosObservableList;
 
     //Constructor privado para evitar instancias nuevas
     private ListasObservables() {
@@ -52,6 +58,7 @@ public class ListasObservables{
         nameDestinosObservableList = ObservableCollections.observableList(nameDestinosList);
         rutaObservableList = ObservableCollections.observableList(rutaList);
         nameRutasObservableList = ObservableCollections.observableList(nameRutasList);
+        preciosObservableList = ObservableCollections.observableList(preciosList);
     }
     
     //Devuelve la unca instancia del Objeto
@@ -176,6 +183,24 @@ public class ListasObservables{
         }
     }
     ////////////////Fin de metodos de lista nombre Rutas////////////////////////
+    
+    ///////////////////////Metodos para listado precios Globales////////////////
+
+    public ObservableList<PrecioGlobal> getPreciosObservableList() {
+        return preciosObservableList;
+    }
+
+    public void setPreciosObservableList(ObservableList<PrecioGlobal> preciosObservableList) {
+        this.preciosObservableList = preciosObservableList;
+    }
+    
+    public void reloadPrecios(){
+        preciosList = precioDAO.getListado();
+        preciosObservableList.clear();
+        preciosObservableList.addAll(preciosList);
+    }
+    
+    ////////////////////////Fin metodos listado precios globales////////////////
     
     public void reloadListadosU(){
         reloadListDPI();

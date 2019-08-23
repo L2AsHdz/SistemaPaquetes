@@ -99,6 +99,7 @@ public class AddRutaController implements ActionListener, MouseListener{
         addRutaView.getTxtnombre().setText("");
         addRutaView.getTxtComent().setText("");
         addRutaView.getCbDestino().setSelectedIndex(-1);
+        addRutaView.getTxtnombre().requestFocus();
         addRutaView.getBtnUpdate().setEnabled(false);
     }
     

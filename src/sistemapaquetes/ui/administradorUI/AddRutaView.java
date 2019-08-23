@@ -59,6 +59,8 @@ public class AddRutaView extends javax.swing.JInternalFrame {
         btnLimpiar = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
 
+        setTitle("Agregar Ruta");
+
         jLabel1.setText("Nombre de la ruta");
 
         jLabel2.setText("Destino");

@@ -110,7 +110,7 @@ public class DestinoDAOImpl implements DestinoDAO{
         } catch (SQLException ex) {
             System.out.println("No se actualizo el registro");
             ex.printStackTrace();
-        } 
+        }
     }
 
     @Override
