@@ -39,7 +39,12 @@ public class AddRutaController implements ActionListener, MouseListener{
             JOptionPane.showMessageDialog(null, "La ventana se encuantra abierta", 
             "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }else {
-            desk.add(addRutaView);
+            try {
+                desk.add(addRutaView);
+            } catch (Exception e) {
+                System.out.println("Error al abrir la ventana\n");
+                desk.add(addRutaView);
+            }
             addRutaView.setVisible(true);
             addRutaView.getCbDestino().setSelectedIndex(-1);
         }

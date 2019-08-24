@@ -41,10 +41,11 @@ public class DestinoController implements ActionListener, MouseListener{
         }else {
             try {
                 desk.add(destinoView);
-                destinoView.setVisible(true);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Error al abrir la ventana\n");
+                desk.add(destinoView);
             }
+            destinoView.setVisible(true);
         }
     }
 

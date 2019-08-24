@@ -39,7 +39,12 @@ public class AddUserController implements ActionListener, MouseListener {
             JOptionPane.showMessageDialog(null, "La ventana se encuantra abierta", 
             "Informacion", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            desk.add(addUserView);
+            try {
+                desk.add(addUserView);
+            } catch (Exception e) {
+                System.out.println("Error al abrir la ventana\n");
+                desk.add(addUserView);                
+            }
             addUserView.setVisible(true);
         }
     }

@@ -108,9 +108,9 @@ public class ListasObservables{
     
     private void reloadListDPI(){
         this.dpiObservableList.clear();
-        userList = userDAO.getListado();
+        List<Usuario> userList = userDAO.getListado();
         for (Usuario u : userList) {
-            if (u.getEstado() != 0) {
+            if (u.getEstado() == 1) {
                 dpiObservableList.add(u.getDPI());
             }
         }
@@ -126,8 +126,8 @@ public class ListasObservables{
     }
     
     private void reloadListDPIO(){
-        this.dpiObservableList.clear();
-        userList = userDAO.getListado();
+        this.dpiOObservableList.clear();
+        List<Usuario> userList = userDAO.getListado();
         for (Usuario u : userList) {
             if (u.getEstado() == 1 && u.getTipo() == 2) {
                 dpiOObservableList.add(u.getDPI());
@@ -249,9 +249,9 @@ public class ListasObservables{
     //////////////////Fin metodos listados puntos de control////////////////////
     
     public void reloadListadosU(){
-        reloadListDPI();
         reloadListUser();
         reloadListDPIO();
+        reloadListDPI();
     }
     
     public void reloadListadosD(){

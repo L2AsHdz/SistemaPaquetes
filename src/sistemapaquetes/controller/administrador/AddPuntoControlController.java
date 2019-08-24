@@ -44,7 +44,12 @@ public class AddPuntoControlController implements ActionListener, MouseListener{
             JOptionPane.showMessageDialog(null, "La ventana se encuantra abierta", 
             "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }else{
-            desk.add(addPCView);
+            try {
+                desk.add(addPCView);
+            } catch (Exception e) {
+                System.out.println("Error a abrir ventana\n");
+                desk.add(addPCView);
+            }
             addPCView.setVisible(true);
             addPCView.getCbRutas().setSelectedIndex(-1);
             addPCView.getCbDPIOperador().setSelectedIndex(-1);
@@ -109,7 +114,7 @@ public class AddPuntoControlController implements ActionListener, MouseListener{
         
         if (!valor.isEmpty()) {
             
-            if (isFloat(valor) || isFloat(limite)) {
+            if (!isFloat(valor) || !isFloat(limite)) {
                 System.out.println("No es un valor numerico");
                 JOptionPane.showMessageDialog(null, "La tarifa y el limite deben ser datos numericos", 
                 "Advertencia", JOptionPane.ERROR_MESSAGE);

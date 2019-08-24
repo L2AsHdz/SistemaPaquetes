@@ -33,8 +33,7 @@ public class PuntoControlDAOImpl implements PuntoControlDAO{
         List<PuntoControl> puntosC = null;
         
         try {
-            String sql = "SELECT pc.IdRuta, pc.Numero AS NumeroPC, pc.Nombre AS NombrePC, "
-                    + "pc.LimitePaquetes, u.Nombre AS Operador, r.Nombre AS Ruta "
+            String sql = "SELECT pc.*, u.Nombre AS Operador, r.Nombre AS Ruta "
                     + "FROM PuntoControl AS pc INNER JOIN Usuario AS u ON pc.DPIOperador=u.DPI "
                     + "INNER JOIN Ruta AS r ON pc.IdRuta=r.Id ORDER BY pc.IdRuta, pc.Numero ASC";
             Statement declaracion = conexion.createStatement();
@@ -44,11 +43,13 @@ public class PuntoControlDAOImpl implements PuntoControlDAO{
             while (rs.next()) {
                 PuntoControl puntoC = new PuntoControl();
                 puntoC.setIdRuta(rs.getInt("IdRuta"));
-                puntoC.setNumero(rs.getInt("NumeroPC"));
-                puntoC.setNombre(rs.getString("NombrePC"));
+                puntoC.setNumero(rs.getInt("Numero"));
+                puntoC.setNombre(rs.getString("Nombre"));
                 puntoC.setLimitePaquetes(rs.getInt("LimitePaquetes"));
                 puntoC.setNombreOperador(rs.getString("Operador"));
                 puntoC.setNombreRuta(rs.getString("Ruta"));
+                puntoC.setTarifaOperacion(rs.getFloat("TarifaOperacion"));
+                puntoC.setTarifaOperacionGlobal(rs.getFloat("TarifaOperacionGlobal"));
                 puntosC.add(puntoC);
             }
             System.out.println("Listado de Puntos de Control Obtenido");

@@ -30,7 +30,12 @@ public class DisableUserController implements ActionListener {
             JOptionPane.showMessageDialog(null, "La ventana se encuantra abierta",
             "Informacion", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            desk.add(disableUserV);
+            try {
+                desk.add(disableUserV);
+            } catch (Exception e) {
+                System.out.println("Error al abrir la ventana\n");
+                desk.add(disableUserV);
+            }
             disableUserV.setVisible(true);
             disableUserV.getCbDPIUsers().setSelectedIndex(-1);
         }
