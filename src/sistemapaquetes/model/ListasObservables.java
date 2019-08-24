@@ -5,6 +5,7 @@ import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import sistemapaquetes.dao.CRUD;
+import sistemapaquetes.dao.DestinoDAOImpl;
 import sistemapaquetes.dao.UsuarioDAOImpl;
 
 /**
@@ -15,6 +16,7 @@ public class ListasObservables{
     
     private static ListasObservables list = null;
     private CRUD<Usuario> userDAO = UsuarioDAOImpl.getUserDAO();
+    private CRUD<Destino> destinoDAO = DestinoDAOImpl.getDestinoDAO();
     
     //listados para Usuarios
     private List<Usuario> userList = new ArrayList();
@@ -23,11 +25,16 @@ public class ListasObservables{
     //listados para DPI de usuarios
     private List<String> dpiList = new ArrayList();
     private ObservableList<String> dpiListObservable;
+    
+    //listados para Destinos
+    private List<Destino> destList = new ArrayList();
+    private ObservableList<Destino> destListObservable;
 
     //Constructor privado para evitar instancias nuevas
     private ListasObservables() {
         userListObservable = ObservableCollections.observableList(userList);
         dpiListObservable = ObservableCollections.observableList(dpiList);
+        destListObservable = ObservableCollections.observableList(destList);
     }
     
     //Devuelve la unca instancia del Objeto
@@ -76,8 +83,24 @@ public class ListasObservables{
         //this.dpiListObservable.addAll(dpiList);
     }
     /////////////////////////////Fin metodos Lista DPI//////////////////////////
+    public ObservableList<Destino> getDestListObservable() {
+        return destListObservable;
+    }
+
+    public void setDestListObservable(ObservableList<Destino> destListObservable) {
+        this.destListObservable = destListObservable;
+    }
     
-    public void reloadListados(){
+    public void reloadListDest(){
+        destList = destinoDAO.getListado();
+        this.destListObservable.clear();
+        this.destListObservable.addAll(destList);
+    }
+    
+    ///////////////Metodos de Lista Observable de Destinos//////////////////////
+    //////////////////////Fin metodos Lista Destinos////////////////////////////
+    
+    public void reloadListadosU(){
         reloadListDPI();
         reloadListUser();
     }

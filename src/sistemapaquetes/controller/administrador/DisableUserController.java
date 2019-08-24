@@ -1,4 +1,4 @@
-package sistemapaquetes.controller;
+package sistemapaquetes.controller.administrador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,7 +41,7 @@ public class DisableUserController implements ActionListener {
         if (disableUserV.getBtnDeshabilitar() == e.getSource()) {
             String dpi = disableUserV.getCbDPIUsers().getSelectedItem().toString();
             userDAO.disableUser(dpi);
-            list.reloadListados();
+            list.reloadListadosU();
         } else if (disableUserV.getBtnCerrar() == e.getSource()) {
             disableUserV.getCbDPIUsers().setSelectedIndex(-1);
             disableUserV.dispose();

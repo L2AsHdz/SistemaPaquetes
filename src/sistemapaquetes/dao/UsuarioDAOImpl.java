@@ -49,6 +49,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
                 usuario.setNombreUsuario(rs.getString("NombreUsuario"));
                 usuarios.add(usuario);
             }
+            System.out.println("Listado de Usuarios Obtenido");
             rs.close();
             declaracion.close();
         } catch (SQLException e) {
@@ -74,7 +75,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
                 u.setPassword(rs.getString("Password"));
                 u.setNombreUsuario(rs.getString("NombreUsuario"));
             }
-            System.out.println("Listado obtenido de la BD");
+            System.out.println("Usuario obtenido de la BD");
             ps.close();
             ps = null;
         } catch (SQLException ex) {
@@ -96,12 +97,12 @@ public class UsuarioDAOImpl implements UsuarioDAO{
             ps.setInt(4,1);
             ps.setString(5, u.getPassword());
             ps.setString(6, u.getNombreUsuario());
-            ps.execute();
-            System.out.println("Registro Ingresado Correctamente");
+            ps.executeUpdate();
+            System.out.println("Usuario Ingresado Correctamente");
             ps.close();
             ps = null;
         } catch (SQLException ex) {
-            System.out.println("No se inserto el registro");
+            System.out.println("No se inserto el usuario");
             ex.printStackTrace();
         }
     }

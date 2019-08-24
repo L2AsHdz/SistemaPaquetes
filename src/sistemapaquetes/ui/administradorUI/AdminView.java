@@ -36,6 +36,9 @@ public class AdminView extends javax.swing.JFrame {
         itmAddUser = new javax.swing.JMenuItem();
         itmDeshabilitarUser = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        itmDestinos = new javax.swing.JMenuItem();
+        itmCrearRuta = new javax.swing.JMenuItem();
+        itmDisableRuta = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +64,16 @@ public class AdminView extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Rutas");
+
+        itmDestinos.setText("Destinos");
+        jMenu2.add(itmDestinos);
+
+        itmCrearRuta.setText("CrearRuta");
+        jMenu2.add(itmCrearRuta);
+
+        itmDisableRuta.setText("Deshabilitar Ruta");
+        jMenu2.add(itmDisableRuta);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -82,7 +95,10 @@ public class AdminView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane DeskAdminFrame;
     private javax.swing.JMenuItem itmAddUser;
+    private javax.swing.JMenuItem itmCrearRuta;
     private javax.swing.JMenuItem itmDeshabilitarUser;
+    private javax.swing.JMenuItem itmDestinos;
+    private javax.swing.JMenuItem itmDisableRuta;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -98,5 +114,13 @@ public class AdminView extends javax.swing.JFrame {
 
     public JMenuItem getItmDeshabilitarUser() {
         return itmDeshabilitarUser;
+    }
+
+    public JMenuItem getItmCrearRuta() {
+        return itmCrearRuta;
+    }
+
+    public JMenuItem getItmDestinos() {
+        return itmDestinos;
     }
 }

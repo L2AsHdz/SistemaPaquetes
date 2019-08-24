@@ -25,6 +25,23 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Rutas"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itmDestinos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Destinos"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itmCrearRuta">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="CrearRuta"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itmDisableRuta">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Deshabilitar Ruta"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

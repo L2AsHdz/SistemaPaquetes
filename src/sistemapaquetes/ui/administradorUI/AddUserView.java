@@ -221,7 +221,7 @@ public class AddUserView extends javax.swing.JInternalFrame {
     public void setVisible(boolean visibility){
         if (visibility) {
             //reloadList();
-            observableList.reloadListados();
+            observableList.reloadListadosU();
         }
         super.setVisible(visibility);
     }

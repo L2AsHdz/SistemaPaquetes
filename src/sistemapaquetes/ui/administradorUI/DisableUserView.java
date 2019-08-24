@@ -108,7 +108,7 @@ public class DisableUserView extends javax.swing.JInternalFrame {
     @Override
     public void setVisible(boolean visibility){
         if (visibility) {
-            observableList.reloadListados();
+            observableList.reloadListadosU();
         }
         super.setVisible(visibility);
     }

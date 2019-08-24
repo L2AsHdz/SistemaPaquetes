@@ -1,4 +1,4 @@
-package sistemapaquetes.controller;
+package sistemapaquetes.controller.administrador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,9 +43,6 @@ public class AddUserController implements ActionListener, MouseListener {
             addUserView.setVisible(true);
         }
     }
-    
-    public void deshabilitarUsuario(){
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -66,7 +63,7 @@ public class AddUserController implements ActionListener, MouseListener {
             if (validarDatos(DPI, nombre, nombreUsuario, tipo, pass)) {
                 nuevoUsuario(DPI, nombre, nombreUsuario, tipo, pass);
                 userDAO.create(usuario);
-                list.reloadListados();
+                list.reloadListadosU();
                 //addUserView.reloadList();
             }
             limpiarCampos();
@@ -86,7 +83,7 @@ public class AddUserController implements ActionListener, MouseListener {
             if (validarDatos(DPI, nombre, nombreUsuario, tipo, pass)) {
                 nuevoUsuario(DPI, nombre, nombreUsuario, tipo, pass);
                 userDAO.update(usuario);
-                list.reloadListados();
+                list.reloadListadosU();
                 //addUserView.reloadList();
             }
             limpiarCampos();
