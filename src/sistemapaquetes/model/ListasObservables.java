@@ -5,6 +5,7 @@ import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import sistemapaquetes.dao.CRUD;
+import sistemapaquetes.dao.cliente.ClienteDAOImpl;
 import sistemapaquetes.dao.destino.DestinoDAOImpl;
 import sistemapaquetes.dao.precio.PrecioDAOImpl;
 import sistemapaquetes.dao.puntocontrol.PuntoControlDAOImpl;
@@ -23,6 +24,7 @@ public class ListasObservables{
     private CRUD<Ruta> rutaDAO = RutaDAOImpl.getRutaDAO();
     private CRUD<PrecioGlobal> precioDAO = PrecioDAOImpl.getPrecioDAO();
     private CRUD<PuntoControl> puntoCDAO = PuntoControlDAOImpl.getPuntoCDAO();
+    private CRUD<Cliente> clienteDAO = ClienteDAOImpl.getClienteDAOImpl();
     
     //listados para Usuarios
     private List<Usuario> userList = new ArrayList();
@@ -43,7 +45,7 @@ public class ListasObservables{
     private ObservableList<String> nameDestinosObservableList;
     
     //listados para Rutas
-    private List<Ruta> rutaList = new ArrayList();
+    private List<Ruta> rutasList = new ArrayList();
     private ObservableList<Ruta> rutaObservableList;
     
     //listados para nombres de rutas
@@ -57,6 +59,10 @@ public class ListasObservables{
     //listados para puntos de control
     private List<PuntoControl> puntosCList = new ArrayList();
     private ObservableList<PuntoControl> puntosCObservableList;
+    
+    //Listados para clientes
+    private List<Cliente> clientesList = new ArrayList();
+    private ObservableList<Cliente> clientesObservableList;
 
     //Constructor privado para evitar instancias nuevas
     private ListasObservables() {
@@ -65,10 +71,11 @@ public class ListasObservables{
         dpiOObservableList = ObservableCollections.observableList(dpiOList);
         destObservableList = ObservableCollections.observableList(destList);
         nameDestinosObservableList = ObservableCollections.observableList(nameDestinosList);
-        rutaObservableList = ObservableCollections.observableList(rutaList);
+        rutaObservableList = ObservableCollections.observableList(rutasList);
         nameRutasObservableList = ObservableCollections.observableList(nameRutasList);
         preciosObservableList = ObservableCollections.observableList(preciosList);
         puntosCObservableList = ObservableCollections.observableList(puntosCList);
+        clientesObservableList = ObservableCollections.observableList(clientesList);
     }
     
     //Devuelve la unca instancia del Objeto
@@ -185,9 +192,9 @@ public class ListasObservables{
     }
     
     private void reloadListRutas(){
-        rutaList = rutaDAO.getListado();
+        rutasList = rutaDAO.getListado();
         rutaObservableList.clear();
-        rutaObservableList.addAll(rutaList);
+        rutaObservableList.addAll(rutasList);
     }
     /////////////////////Fin metodos de lista de rutas//////////////////////////
     
@@ -203,8 +210,8 @@ public class ListasObservables{
     
     private void reloadListNameRutas(){
         nameRutasObservableList.clear();
-        rutaList = rutaDAO.getListado();
-        for (Ruta r : rutaList) {
+        rutasList = rutaDAO.getListado();
+        for (Ruta r : rutasList) {
             if (r.getEstado() != 0) {
                 nameRutasObservableList.add(r.getNombre());
             }
@@ -247,6 +254,24 @@ public class ListasObservables{
     }
     
     //////////////////Fin metodos listados puntos de control////////////////////
+    
+    //////////////////Metodos para listado observable de clientes///////////////
+
+    public ObservableList<Cliente> getClientesObservableList() {
+        return clientesObservableList;
+    }
+
+    public void setClientesObservableList(ObservableList<Cliente> clientesObservableList) {
+        this.clientesObservableList = clientesObservableList;
+    }
+    
+    public void reloadLIstClientes(){
+        clientesList = clienteDAO.getListado();
+        clientesObservableList.clear();
+        clientesObservableList.addAll(clientesList);
+    }
+    
+    //////////////////Fin de metodos de listado de clientes/////////////////////
     
     public void reloadListadosU(){
         reloadListUser();

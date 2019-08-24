@@ -60,8 +60,6 @@ public class AddUserController implements ActionListener, MouseListener {
 
         if (addUserView.getBtnAdd() == e.getSource()) {
 
-            
-
             if (validarDatos(DPI, nombre, nombreUsuario, tipo, pass)) {
                 nuevoUsuario(DPI, nombre, nombreUsuario, tipo, pass);
                 userDAO.create(usuario);

@@ -8,6 +8,7 @@ public class Cliente {
     private String nit;
     private String nombre;
     private String direccion;
+    private String telefono;
 
     public Cliente() {
     }
@@ -34,5 +35,13 @@ public class Cliente {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }

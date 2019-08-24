@@ -7,9 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import sistemapaquetes.controller.recepcionista.RecepcionistaUIController;
 import sistemapaquetes.model.Usuario;
 import sistemapaquetes.ui.LoginView;
 import sistemapaquetes.ui.administradorUI.AdminView;
+import sistemapaquetes.ui.recepcionistaUI.RecepcionistaView;
 
 /**
  *
@@ -18,8 +20,14 @@ import sistemapaquetes.ui.administradorUI.AdminView;
 public class LoginController implements ActionListener{
     private LoginView login;
     private CRUD<Usuario> userDAO;
+    
+    //Vista y controlador para AdminUI
     private AdminView adminView;
     private AdminUIController adminC;
+    
+    //Vista y controlador para RecepcionistaUI
+    private RecepcionistaView recepView;
+    private RecepcionistaUIController recepC;
 
     public LoginController(LoginView log) {
         this.login = log;
@@ -87,7 +95,11 @@ public class LoginController implements ActionListener{
                     break;
                     
                 case 3:
-                    //abrir gui recepcionista
+                    login.dispose();
+                    limpiarCampos();
+                    recepView = new RecepcionistaView();
+                    recepC = new RecepcionistaUIController(recepView);
+                    recepC.iniar();
                     break;
                 case 4:
                     JOptionPane.showMessageDialog(null, "Usuario Deshabilitado", 

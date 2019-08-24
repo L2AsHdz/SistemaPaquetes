@@ -3,6 +3,7 @@ package sistemapaquetes.controller.recepcionista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import sistemapaquetes.ui.recepcionistaUI.AddClienteView;
 import sistemapaquetes.ui.recepcionistaUI.RecepcionistaView;
 
 /**
@@ -11,6 +12,10 @@ import sistemapaquetes.ui.recepcionistaUI.RecepcionistaView;
  */
 public class RecepcionistaUIController implements ActionListener{
     private final RecepcionistaView recepView;
+    
+    //Vista y controlador para agregar cliente
+    private final AddClienteView addClientV = new AddClienteView();
+    private final AddClientController addClientC = new AddClientController(addClientV);
 
     public RecepcionistaUIController(RecepcionistaView recepView) {
         
@@ -19,7 +24,6 @@ public class RecepcionistaUIController implements ActionListener{
         this.recepView.getItmAddPaquete().addActionListener(this);
         this.recepView.getItmConsultarL().addActionListener(this);
         this.recepView.getItmRetiroP().addActionListener(this);
-        this.recepView.getItmClientes().addActionListener(this);
     }
     
     public void iniar(){
@@ -28,11 +32,18 @@ public class RecepcionistaUIController implements ActionListener{
         recepView.setLocationRelativeTo(null);
         recepView.setVisible(true);
     }
-//alfo
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (recepView.getItmAddPaquete() == e.getSource()) {
+            
+        }else if (recepView.getItmClientes() == e.getSource()) {
+            System.out.println("item clientes");
+            addClientC.iniciar(recepView.getDeskRecepcion());
+        }else if (recepView.getItmConsultarL() == e.getSource()) {
+            
+        }else if (recepView.getItmRetiroP() == e.getSource()) {
+            
+        }
     }
-    
-    //metodo para aborl
 }

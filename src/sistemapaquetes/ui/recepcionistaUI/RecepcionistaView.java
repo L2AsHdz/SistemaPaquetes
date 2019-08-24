@@ -6,7 +6,6 @@
 package sistemapaquetes.ui.recepcionistaUI;
 
 import javax.swing.JDesktopPane;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 /**
@@ -33,8 +32,8 @@ public class RecepcionistaView extends javax.swing.JFrame {
 
         DeskRecepcion = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        itmClientes = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        JMenu1 = new javax.swing.JMenu();
+        itmClientes = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         itmAddPaquete = new javax.swing.JMenuItem();
         itmRetiroP = new javax.swing.JMenuItem();
@@ -53,12 +52,12 @@ public class RecepcionistaView extends javax.swing.JFrame {
             .addGap(0, 313, Short.MAX_VALUE)
         );
 
-        itmClientes.setText("Clientes");
+        JMenu1.setText("Clientes");
 
-        jMenuItem1.setText("Ingreso Clientes");
-        itmClientes.add(jMenuItem1);
+        itmClientes.setText("Ingreso Clientes");
+        JMenu1.add(itmClientes);
 
-        jMenuBar1.add(itmClientes);
+        jMenuBar1.add(JMenu1);
 
         jMenu2.setText("Paquetes");
 
@@ -92,13 +91,13 @@ public class RecepcionistaView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane DeskRecepcion;
+    private javax.swing.JMenu JMenu1;
     private javax.swing.JMenuItem itmAddPaquete;
-    private javax.swing.JMenu itmClientes;
+    private javax.swing.JMenuItem itmClientes;
     private javax.swing.JMenuItem itmConsultarL;
     private javax.swing.JMenuItem itmRetiroP;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 
     public JDesktopPane getDeskRecepcion() {
@@ -109,7 +108,7 @@ public class RecepcionistaView extends javax.swing.JFrame {
         return itmAddPaquete;
     }
 
-    public JMenu getItmClientes() {
+    public JMenuItem getItmClientes() {
         return itmClientes;
     }
 
