@@ -51,13 +51,12 @@ public class DestinoController implements ActionListener, MouseListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //int id;
-        String nombre;
-        String cuotaDestino;
+        
+        String nombre = destinoView.getTxtnombreDestino().getText();
+        String cuotaDestino = destinoView.getTxtCuotaDestino().getText();
         
         if (destinoView.getBtnCrear() == e.getSource()) {
-            nombre = destinoView.getTxtnombreDestino().getText();
-            cuotaDestino = destinoView.getTxtCuotaDestino().getText();
+            
             
             if (validarDatos(nombre, cuotaDestino)) {
                 nuevoDestino(nombre, cuotaDestino);
@@ -73,9 +72,6 @@ public class DestinoController implements ActionListener, MouseListener{
             limpiarCampos();
             idTemp = 0;
         }else if (destinoView.getBtnActualizar() == e.getSource()) {
-            
-            nombre = destinoView.getTxtnombreDestino().getText();
-            cuotaDestino = destinoView.getTxtCuotaDestino().getText();
             
             if (validarDatos(nombre, cuotaDestino)) {
                 nuevoDestino(nombre, cuotaDestino);

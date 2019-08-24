@@ -51,19 +51,16 @@ public class AddUserController implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String DPI;
-        String nombre;
-        String nombreUsuario;
-        String pass;
-        byte tipo;
+        
+        String DPI = addUserView.getFtxtDPI().getText();
+        String nombre = addUserView.getTxtNombre().getText();
+        String nombreUsuario = addUserView.getTxtNombreUsuario().getText();
+        String pass = addUserView.getTxtPass().getText();
+        byte tipo = (byte) (addUserView.getCbTipoUsuario().getSelectedIndex() + 1);
 
         if (addUserView.getBtnAdd() == e.getSource()) {
 
-            DPI = addUserView.getFtxtDPI().getText();
-            nombre = addUserView.getTxtNombre().getText();
-            nombreUsuario = addUserView.getTxtNombreUsuario().getText();
-            pass = addUserView.getTxtPass().getText();
-            tipo = (byte) (addUserView.getCbTipoUsuario().getSelectedIndex() + 1);
+            
 
             if (validarDatos(DPI, nombre, nombreUsuario, tipo, pass)) {
                 nuevoUsuario(DPI, nombre, nombreUsuario, tipo, pass);
@@ -78,12 +75,6 @@ public class AddUserController implements ActionListener, MouseListener {
         } else if (addUserView.getBtnLimpiar() == e.getSource()) {
             limpiarCampos();
         } else if (addUserView.getBtnUpdate() == e.getSource()) {
-
-            DPI = addUserView.getFtxtDPI().getText();
-            nombre = addUserView.getTxtNombre().getText();
-            nombreUsuario = addUserView.getTxtNombreUsuario().getText();
-            pass = addUserView.getTxtPass().getText();
-            tipo = (byte) (addUserView.getCbTipoUsuario().getSelectedIndex() + 1);
 
             if (validarDatos(DPI, nombre, nombreUsuario, tipo, pass)) {
                 nuevoUsuario(DPI, nombre, nombreUsuario, tipo, pass);

@@ -52,14 +52,12 @@ public class AddRutaController implements ActionListener, MouseListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String nombre;
-        String descripcion;
-        int idDestino;
+        
+        String nombre = addRutaView.getTxtnombre().getText();
+        String descripcion = addRutaView.getTxtComent().getText();
+        int idDestino = (addRutaView.getCbDestino().getSelectedIndex()+1);
         
         if (addRutaView.getBtnCrear() == e.getSource()) {
-            nombre = addRutaView.getTxtnombre().getText();
-            descripcion = addRutaView.getTxtComent().getText();
-            idDestino = (addRutaView.getCbDestino().getSelectedIndex()+1);
             
             if (validarDatos(nombre, idDestino)) {
                 nuevaRuta(nombre, idDestino, descripcion);
@@ -75,9 +73,6 @@ public class AddRutaController implements ActionListener, MouseListener{
             limpiarCampos();
             idTemp = 0;
         }else if (addRutaView.getBtnUpdate() == e.getSource()) {
-            nombre = addRutaView.getTxtnombre().getText();
-            descripcion = addRutaView.getTxtComent().getText();
-            idDestino = (addRutaView.getCbDestino().getSelectedIndex()+1);
             
             if (validarDatos(nombre, idDestino)) {
                 nuevaRuta(nombre, idDestino, descripcion);

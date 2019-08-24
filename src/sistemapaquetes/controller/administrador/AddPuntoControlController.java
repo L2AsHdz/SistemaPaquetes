@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
+import sistemapaquetes.dao.colapc.ColapcDAO;
+import sistemapaquetes.dao.colapc.ColapcDAOImpl;
 import sistemapaquetes.dao.precio.PrecioDAO;
 import sistemapaquetes.dao.precio.PrecioDAOImpl;
 import sistemapaquetes.dao.puntocontrol.PuntoControlDAO;
@@ -24,6 +26,7 @@ public class AddPuntoControlController implements ActionListener, MouseListener{
     private PuntoControl pc;
     private PuntoControlDAO puntoCDAO;
     private PrecioDAO precioDAO;
+    private ColapcDAO colaDAO;
     private int numero = 0;
     private int idRutatemp = 0;
     private ListasObservables list = ListasObservables.getInstance();
@@ -31,6 +34,7 @@ public class AddPuntoControlController implements ActionListener, MouseListener{
     public AddPuntoControlController(AddPuntoControlView addPCView) {
         puntoCDAO = PuntoControlDAOImpl.getPuntoCDAO();
         precioDAO = PrecioDAOImpl.getPrecioDAO();
+        colaDAO = ColapcDAOImpl.getColaDAOImpl();
         this.addPCView = addPCView;
         this.addPCView.getBtnCrear().addActionListener(this);
         this.addPCView.getBtnCerrar().addActionListener(this);
@@ -59,19 +63,13 @@ public class AddPuntoControlController implements ActionListener, MouseListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        String nombre;
-        String limite;
-        String valor;
-        int idRuta;
-        int idOp;
-        
+        String nombre = addPCView.getTxtNombre().getText();
+        String limite = addPCView.getTxtLimitePaquetes().getText();
+        String valor = addPCView.getTxtTarifaOperacion().getText();
+        int idRuta = addPCView.getCbRutas().getSelectedIndex()+1;
+        int idOp = addPCView.getCbDPIOperador().getSelectedIndex()+1;
+
         if (addPCView.getBtnCrear() == e.getSource()) {
-            
-            nombre = addPCView.getTxtNombre().getText();
-            limite = addPCView.getTxtLimitePaquetes().getText();
-            valor = addPCView.getTxtTarifaOperacion().getText();
-            idRuta = addPCView.getCbRutas().getSelectedIndex()+1;
-            idOp = addPCView.getCbDPIOperador().getSelectedIndex()+1;
             
             if (validarDatos(nombre, valor, limite, idRuta, idOp)) {
                 nuevoPuntoControl(nombre, limite, valor, idRuta);
@@ -88,13 +86,8 @@ public class AddPuntoControlController implements ActionListener, MouseListener{
             idRuta = 0;
             numero = 0;
         }else if (addPCView.getBtnUpdate() == e.getSource()) {
-            /*
-            nombre = addPCView.getTxtNombre().getText();
-            limite = addPCView.getTxtLimitePaquetes().getText();
-            valor = addPCView.getTxtTarifaOperacion().getText();
-            idRuta = addPCView.getCbRutas().getSelectedIndex()+1;
-            idOp = addPCView.getCbDPIOperador().getSelectedIndex()+1;
             
+            /*
             if (validarDatos(nombre, valor, limite, idRuta, idOp)) {
                 nuevoPuntoControl(nombre, limite, valor, idOp);
             }*/
@@ -170,7 +163,12 @@ public class AddPuntoControlController implements ActionListener, MouseListener{
         addPCView.getCbRutas().setSelectedIndex(pc.getIdRuta()-1);
         addPCView.getCbDPIOperador().setSelectedItem(pc.getDPIOperador());
         //Hay que validar la cola de los puntos de control para poder editar
-        addPCView.getBtnUpdate().setEnabled(true);
+        if (colaDAO.getNoPaquetes(pc.getNumero()) < pc.getLimitePaquetes()) {
+            addPCView.getBtnUpdate().setEnabled(true);
+        }else {
+            JOptionPane.showMessageDialog(null, "La cola del punto de control esta completa",
+                    "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     @Override
