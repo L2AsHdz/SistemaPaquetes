@@ -39,8 +39,12 @@ public class DestinoController implements ActionListener, MouseListener{
             JOptionPane.showMessageDialog(null, "La ventana se encuantra abierta", 
             "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }else {
-            desk.add(destinoView);
-            destinoView.setVisible(true);
+            try {
+                desk.add(destinoView);
+                destinoView.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -66,6 +70,7 @@ public class DestinoController implements ActionListener, MouseListener{
             destinoView.dispose();
         }else if (destinoView.getBtnLimpiar() == e.getSource()) {
             limpiarCampos();
+            idTemp = 0;
         }else if (destinoView.getBtnActualizar() == e.getSource()) {
             
             nombre = destinoView.getTxtnombreDestino().getText();
