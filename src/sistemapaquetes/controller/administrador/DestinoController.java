@@ -2,8 +2,8 @@ package sistemapaquetes.controller.administrador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import sistemapaquetes.dao.CRUD;
@@ -16,7 +16,7 @@ import sistemapaquetes.ui.administradorUI.DestinoView;
  *
  * @author asael
  */
-public class DestinoController implements ActionListener, MouseListener{
+public class DestinoController extends MouseAdapter implements ActionListener{
     
     private DestinoView destinoView;
     private Destino destino;
@@ -131,17 +131,5 @@ public class DestinoController implements ActionListener, MouseListener{
         destinoView.getTxtCuotaDestino().setText(String.valueOf(destino.getCuotaDestino()));
         destinoView.getBtnActualizar().setEnabled(true);
     }
-    
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
     
 }

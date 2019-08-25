@@ -63,6 +63,10 @@ public class ListasObservables{
     //Listados para clientes
     private List<Cliente> clientesList = new ArrayList();
     private ObservableList<Cliente> clientesObservableList;
+    
+    //listados para paquetes
+    private List<Paquete> paqueteList = new ArrayList();
+    private ObservableList<Paquete> paquetesObservableLIst;
 
     //Constructor privado para evitar instancias nuevas
     private ListasObservables() {
@@ -76,6 +80,7 @@ public class ListasObservables{
         preciosObservableList = ObservableCollections.observableList(preciosList);
         puntosCObservableList = ObservableCollections.observableList(puntosCList);
         clientesObservableList = ObservableCollections.observableList(clientesList);
+        paquetesObservableLIst = ObservableCollections.observableList(paqueteList);
     }
     
     //Devuelve la unca instancia del Objeto
@@ -272,6 +277,23 @@ public class ListasObservables{
     }
     
     //////////////////Fin de metodos de listado de clientes/////////////////////
+    
+    ///////////////////metodos para listado de paquetes/////////////////////////
+
+    public ObservableList<Paquete> getPaquetesObservableLIst() {
+        return paquetesObservableLIst;
+    }
+
+    public void setPaquetesObservableLIst(ObservableList<Paquete> paquetesObservableLIst) {
+        this.paquetesObservableLIst = paquetesObservableLIst;
+    }
+    
+    public void reloadPaquetes1(List<Paquete> paquetes){
+        paqueteList = paquetes;
+        paquetesObservableLIst.clear();
+        paquetesObservableLIst.addAll(paqueteList);
+    }
+    //////////////////fin de metodos para listado de paquetes///////////////////
     
     public void reloadListadosU(){
         reloadListUser();

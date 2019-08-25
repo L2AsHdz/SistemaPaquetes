@@ -65,8 +65,6 @@ public class Usuario {
             case 3:
                 this.tipoN = "Recepcionista";
                 break;
-            default:
-                break;
         }
     }
 

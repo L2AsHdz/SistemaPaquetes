@@ -2,8 +2,8 @@ package sistemapaquetes.controller.administrador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import sistemapaquetes.dao.usuario.UsuarioDAO;
@@ -16,7 +16,7 @@ import sistemapaquetes.ui.administradorUI.AddUserView;
  *
  * @author asael
  */
-public class AddUserController implements ActionListener, MouseListener {
+public class AddUserController extends MouseAdapter implements ActionListener {
 
     private AddUserView addUserView;
     private Usuario usuario;
@@ -125,16 +125,4 @@ public class AddUserController implements ActionListener, MouseListener {
         addUserView.getCbTipoUsuario().setSelectedItem(usuario.getTipoN());
         addUserView.getBtnUpdate().setEnabled(true);
     }
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
 }

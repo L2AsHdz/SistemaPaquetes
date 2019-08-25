@@ -52,10 +52,10 @@ public class Ruta {
     public void setEstadoS() {
         switch (estado) {
             case 0:
-                this.estadoS = "Deshabilitado";
+                this.estadoS = "Deshabilitada";
                 break;
             case 1:
-                this.estadoS ="Activo";
+                this.estadoS ="Activa";
                 break;
         }
     }

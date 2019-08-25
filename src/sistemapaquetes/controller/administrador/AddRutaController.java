@@ -2,8 +2,8 @@ package sistemapaquetes.controller.administrador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import sistemapaquetes.dao.CRUD;
@@ -16,7 +16,7 @@ import sistemapaquetes.ui.administradorUI.AddRutaView;
  *
  * @author asael
  */
-public class AddRutaController implements ActionListener, MouseListener{
+public class AddRutaController extends MouseAdapter implements ActionListener {
     
     private AddRutaView addRutaView;
     private Ruta ruta;
@@ -120,16 +120,4 @@ public class AddRutaController implements ActionListener, MouseListener{
         addRutaView.getCbDestino().setSelectedIndex(ruta.getIdDestino()-1);
         addRutaView.getBtnUpdate().setEnabled(true);
     }
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
 }

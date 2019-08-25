@@ -2,8 +2,8 @@ package sistemapaquetes.controller.administrador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import sistemapaquetes.dao.colapc.ColapcDAO;
@@ -20,7 +20,7 @@ import sistemapaquetes.ui.administradorUI.AddPuntoControlView;
  *
  * @author asael
  */
-public class AddPuntoControlController implements ActionListener, MouseListener{
+public class AddPuntoControlController extends MouseAdapter implements ActionListener {
     
     private AddPuntoControlView addPCView;
     private PuntoControl pc;
@@ -169,18 +169,5 @@ public class AddPuntoControlController implements ActionListener, MouseListener{
             JOptionPane.showMessageDialog(null, "La cola del punto de control esta completa",
                     "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
-    
+    }    
 }

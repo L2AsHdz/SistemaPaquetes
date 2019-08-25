@@ -2,8 +2,8 @@ package sistemapaquetes.controller.administrador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import sistemapaquetes.dao.CRUD;
@@ -16,7 +16,7 @@ import sistemapaquetes.ui.administradorUI.PreciosView;
  *
  * @author asael
  */
-public class PreciosController implements ActionListener, MouseListener{
+public class PreciosController extends MouseAdapter implements ActionListener{
     
     private PreciosView preciosView;
     private PrecioGlobal precio;
@@ -116,16 +116,4 @@ public class PreciosController implements ActionListener, MouseListener{
         preciosView.getTxtValor().setText(String.valueOf(precio.getValor()));
         preciosView.getBtnUpdate().setEnabled(true);
     }
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
 }
