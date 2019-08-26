@@ -29,15 +29,19 @@ public class ColapcDAOImpl implements ColapcDAO{
     }
 
     @Override
-    public int getNoPaquetes(int noPC) {
+    public int getNoPaquetes(int noPC, int idRuta) {
         int valor = 0;
         try {
-            String sql = "SELECT COUNT(*) FROM ColaPuntoControl WHERE NoPuntoControl = ?";
+            String sql = "SELECT COUNT(*) FROM ColaPuntoControl WHERE NoPuntoControl = ? AND IdRutaPC = ?";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, noPC);
+            ps.setInt(2, idRuta);
+            
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            valor = rs.getInt(1);
+            if (rs.next()) {
+                valor = rs.getInt(1);
+            }
+            
             System.out.println("Numero paquetes en cola obtenido");
             ps.close();
             ps = null;

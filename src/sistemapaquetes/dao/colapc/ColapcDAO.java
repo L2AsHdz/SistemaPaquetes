@@ -10,7 +10,7 @@ import sistemapaquetes.model.PuntoControl;
  * @author asael
  */
 public interface ColapcDAO{
-    public int getNoPaquetes(int noPC);
+    public int getNoPaquetes(int noPC, int idRuta);
     public List<PaqueteInCola> getListado(int noPC);
     public void addPaqueteToCola(Paquete p, PuntoControl pc);
     public void removePaquete(Paquete p, PuntoControl pc);

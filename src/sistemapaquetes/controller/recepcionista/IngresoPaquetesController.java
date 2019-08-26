@@ -86,6 +86,7 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
             }
             ingresoPView.setVisible(true);
             ingresoPView.getCbRuta().setSelectedIndex(-1);
+            ingresoPView.getTxtNit().requestFocus();
         }
     }
 
@@ -251,6 +252,7 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
                     System.out.println("cliente no existe");
                     limpiarCamposC();
                     enableCamposC(true);
+                    ingresoPView.getTxtNombreC().requestFocus();
                 }
                 ingresoPView.getTxtNit().setText(nit);
                 enableCamposP(true);
