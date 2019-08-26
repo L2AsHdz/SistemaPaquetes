@@ -8,5 +8,5 @@ import sistemapaquetes.model.Paquete;
  * @author asael
  */
 public interface PaqueteDAO extends CRUD<Paquete>{
-    
+    public int getIdPaquete();
 }

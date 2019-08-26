@@ -62,15 +62,15 @@ public class PaqueteDAOImpl implements PaqueteDAO{
     @Override
     public void create(Paquete p) {
         try {
-            String sql = "INSERT INTO Paquete (Nombre, Descripcion, Peso, EstadoRetiro, Priorizado, IdRuta, )"
+            String sql = "INSERT INTO Paquete (Nombre, Descripcion, Peso, EstadoRetiro, Priorizado, IdRuta)"
                     + "VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, p.getNombre());
             ps.setString(2, p.getDescripcion());
             ps.setFloat(3, p.getPeso());
             ps.setInt(4, 0);
-            ps.setInt(4, p.getPriorizado());
-            ps.setInt(4, p.getIdRuta());
+            ps.setInt(5, p.getPriorizado());
+            ps.setInt(6, p.getIdRuta());
             ps.executeUpdate();
             System.out.println("Paquete creado Correctamente");
             ps.close();
@@ -111,39 +111,34 @@ public class PaqueteDAOImpl implements PaqueteDAO{
 
     @Override
     public void update(Paquete p) {
-        try {
-            String sql = "UPDATE Ruta SET Nombre = ?, Descripcion = ?, Peso = ? "
-                    + " Priorizado = ? IdRuta = ? WHERE Id = ?";
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setString(1, p.getNombre());
-            ps.setString(2, p.getDescripcion());
-            ps.setFloat(3, p.getPeso());
-            ps.setInt(4, p.getPriorizado());
-            ps.setInt(5, p.getIdRuta());
-            ps.setInt(6, p.getId());
-            ps.executeUpdate();
-            System.out.println("Paquete actualizado");
-            ps.close();
-            ps=null;
-        } catch (SQLException ex) {
-            System.out.println("No se actualizo el registro");
-            ex.printStackTrace();
-        }
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public int getIdPaquete() {
+        int id = 0;
         try {
-            String sql = "DELETE FROM Paquete WHERE Id = ?";
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            ps.close();
-            ps = null;
+            String sql = "SELECT Id FROM Paquete ORDER BY Id DESC LIMIT 1";
+            Statement declaracion = conexion.createStatement();
+            
+            ResultSet rs = declaracion.executeQuery(sql);
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            
+            System.out.println("IdP obtenido");
+            rs.close();
+            declaracion.close();
         } catch (SQLException ex) {
-            System.out.println("No se elimino registro");
+            System.out.println("No se pudo leer el IdP");
             ex.printStackTrace();
         }
+        return id;
     }
     
 }

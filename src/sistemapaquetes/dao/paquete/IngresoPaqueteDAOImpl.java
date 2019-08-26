@@ -49,7 +49,7 @@ public class IngresoPaqueteDAOImpl implements IngresoPaqueteDAO{
                 ingreso.setPrecioPriorizacion(rs.getFloat("PrecioPriorizacion"));
                 ingreso.setPrecioLibra(rs.getFloat("PrecioLibra"));
                 ingreso.setCuotaDestino(rs.getFloat("CuotaDestino"));
-                ingreso.setCostoPeso(rs.getFloat("CostoPrecio"));
+                ingreso.setCostoPeso(rs.getFloat("CostoPeso"));
                 ingreso.setTotal();
                 ingresos.add(ingreso);
             }
@@ -67,7 +67,7 @@ public class IngresoPaqueteDAOImpl implements IngresoPaqueteDAO{
     public void create(IngresoPaquete i) {
         try {
             String sql = "INSERT INTO IngresoPaquete(CodigoFactura, IdPaquete, NitCliente, "
-                    + "Fecha, PrecioPriorizacion, PrecioLibra, CuotaDestino, CostoPrecio, Total) "
+                    + "Fecha, PrecioPriorizacion, PrecioLibra, CuotaDestino, CostoPeso, Total) "
                     + "VALUES (?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, i.getCodigoFactura());
@@ -84,7 +84,7 @@ public class IngresoPaqueteDAOImpl implements IngresoPaqueteDAO{
             ps.close();
             ps = null;
         } catch (SQLException ex) {
-            System.out.println("No se crear el ingreso");
+            System.out.println("No se pudo crear el ingreso");
             ex.printStackTrace();
         }
     }
