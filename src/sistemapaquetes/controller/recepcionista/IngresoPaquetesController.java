@@ -6,17 +6,27 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import sistemapaquetes.dao.CRUD;
+import sistemapaquetes.dao.bodega.BodegaDAO;
+import sistemapaquetes.dao.bodega.BodegaDAOImpl;
 import sistemapaquetes.dao.cliente.ClienteDAOImpl;
+import sistemapaquetes.dao.paquete.IngresoPaqueteDAO;
+import sistemapaquetes.dao.paquete.IngresoPaqueteDAOImpl;
 import sistemapaquetes.dao.paquete.PaqueteDAOImpl;
+import sistemapaquetes.dao.precio.PrecioDAO;
+import sistemapaquetes.dao.precio.PrecioDAOImpl;
+import sistemapaquetes.dao.ruta.RutaDAO;
+import sistemapaquetes.dao.ruta.RutaDAOImpl;
 import sistemapaquetes.model.Cliente;
 import sistemapaquetes.model.IngresoPaquete;
 import sistemapaquetes.model.ListasObservables;
 import sistemapaquetes.model.Paquete;
+import sistemapaquetes.ui.recepcionistaUI.FacturaView;
 import sistemapaquetes.ui.recepcionistaUI.IngresoPaquetesView;
 
 /**
@@ -26,12 +36,16 @@ import sistemapaquetes.ui.recepcionistaUI.IngresoPaquetesView;
 public class IngresoPaquetesController extends FocusAdapter implements ActionListener, MouseListener{
     
     private IngresoPaquetesView ingresoPView;
+    private FacturaView facturaView;
     private Paquete paquete;
     private IngresoPaquete ingresoP;
     private Cliente cliente;
     private CRUD<Paquete> paqueteDAO;
-    private CRUD<IngresoPaquete> ingresoPDAO;
+    private IngresoPaqueteDAO ingresoPDAO;
     private CRUD<Cliente> clienteDAO;
+    private RutaDAO rutaDAO;
+    private BodegaDAO bodegaDAO;
+    private PrecioDAO precioDAO; 
     private List<Paquete> paquetes = new ArrayList();
     private ListasObservables list = ListasObservables.getInstance();
     private int idTemp = -1;
@@ -39,14 +53,20 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
 
     public IngresoPaquetesController(IngresoPaquetesView ingresoPView) {
         paqueteDAO = PaqueteDAOImpl.getPaqueteDAOImpl();
+        ingresoPDAO = IngresoPaqueteDAOImpl.getIngresoPDAOImpl();
         clienteDAO = ClienteDAOImpl.getClienteDAOImpl();
+        precioDAO = PrecioDAOImpl.getPrecioDAO();
+        rutaDAO = RutaDAOImpl.getRutaDAO();
+        bodegaDAO = BodegaDAOImpl.getBodegaDAOImpl();
+        this.facturaView = new FacturaView();
         this.ingresoPView = ingresoPView;
         this.ingresoPView.getBtnAgregar().addActionListener(this);
         this.ingresoPView.getBtnCerrra().addActionListener(this);
-        this.ingresoPView.getBtnEnviar().addActionListener(this);
+        this.ingresoPView.getBtnSiguiente().addActionListener(this);
         this.ingresoPView.getBtnUpdate().addActionListener(this);
         this.ingresoPView.getBtnEliminar().addActionListener(this);
         this.ingresoPView.getBtnLimpiar().addActionListener(this);
+        this.facturaView.getBtnEnviar().addActionListener(this);
         this.ingresoPView.getTblPaquetes().addMouseListener(this);
         this.ingresoPView.getTxtNit().addFocusListener(this);
     }
@@ -69,16 +89,29 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //Datos para un nuevo cliente
         String nit = ingresoPView.getTxtNit().getText();
         String nombreC = ingresoPView.getTxtNombreC().getText();
         String dir = ingresoPView.getTxtDireccion().getText();
         String tel = ingresoPView.getTxtTelefono().getText();
         
+        //datos para un nuevo paquete
         String nombreP = ingresoPView.getTxtNombreP().getText();
         String descripcion = ingresoPView.getTxtDescripcion().getText();
         String peso = ingresoPView.getTxtPeso().getText();
         int idRuta = (ingresoPView.getCbRuta().getSelectedIndex()+1);
         int priorizado = (ingresoPView.getChbPriorizar().isSelected()) ? 1 : 0;
+        
+        //datos para un nuevo IngresoPaquete
+        int codFact = ingresoPDAO.getCodFactura()+1;
+        String fecha = LocalDate.now().toString();
+        float costoPeso;
+        float cuotaD;
+        float precioPriorizacion;
+        float precioLibra = precioDAO.getValor(2);
+        
+        //variables para ingreso de datos a BD
+        boolean nuevoCliente = false;
         
         if (ingresoPView.getBtnAgregar() == e.getSource()) {
             
@@ -95,8 +128,58 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
             paquetes.clear();
             list.reloadPaquetes1(paquetes);
             ingresoPView.dispose();
-        }else if (ingresoPView.getBtnEnviar() == e.getSource()) {
+        }else if (ingresoPView.getBtnSiguiente() == e.getSource()) {
+            boolean seguir = true;
             
+            
+            facturaView.getTxtAFactura().setText("");
+            if (clienteDAO.getObject(nit) != null) {
+                cliente = clienteDAO.getObject(nit);
+                nuevoCliente = false;
+            }else if (validarDatos2(nit, nombreC)){
+                nuevoCliente(nit, nombreC, dir, tel);
+                nuevoCliente = true;
+            }else{
+                seguir = false;
+            }
+            if (!paquetes.isEmpty() && seguir) {
+                facturaView.getTxtAFactura().append("Cliente:");
+                facturaView.getTxtAFactura().append("\nNombre:\t"+cliente.getNombre());
+                facturaView.getTxtAFactura().append("\nNit:\t"+cliente.getNit());
+                facturaView.getTxtAFactura().append("\nDireccion:\t"+cliente.getDireccion());
+                facturaView.getTxtAFactura().append("\nTelefono:\t"+cliente.getTelefono()+"\n");
+
+                facturaView.getTxtAFactura().append("\nPaquetes:");
+
+                
+                float subtotal;
+                float total = 0;
+                for (Paquete p : paquetes) {
+
+                    costoPeso = (p.getPeso()*precioLibra);
+                    cuotaD = rutaDAO.getCuotaDestino(p.getIdRuta());
+                    if (p.getPriorizado() == 0) {
+                        precioPriorizacion = 0;
+                    }else {
+                        precioPriorizacion = precioDAO.getValor(3);
+                    }
+                    subtotal = (costoPeso + precioPriorizacion + cuotaD);
+                    facturaView.getTxtAFactura().append("\n"+p.getNombre()+":");
+                    facturaView.getTxtAFactura().append("\n\tCuotaDestino:\t"+cuotaD);
+                    facturaView.getTxtAFactura().append("\n\tCostoPeso:\t\t"+costoPeso);
+                    facturaView.getTxtAFactura().append("\n\tPriorizacion:\t\t"+precioPriorizacion);
+                    facturaView.getTxtAFactura().append("\n\tSubtotal:\t\t"+subtotal);
+                    total+= subtotal; 
+                }
+                facturaView.getTxtAFactura().append("\n\nTotal:\t\t"+total);
+                facturaView.setVisible(true);
+                facturaView.setLocationRelativeTo(null);
+            }else{
+                if (seguir) {
+                    JOptionPane.showMessageDialog(null, "No hay paquetes ingresados", 
+                    "Advertencia", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }else if (ingresoPView.getBtnUpdate() == e.getSource()) {
             
             if (validarDatos1(nombreP, peso, idRuta)) {
@@ -118,6 +201,32 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
             enableCamposP(false);
             paquetes.clear();
             list.reloadPaquetes1(paquetes);
+        }else if (facturaView.getBtnEnviar() == e.getSource()) {
+            
+            //Creacion de nuevo cliente
+            if (nuevoCliente) {
+                clienteDAO.create(cliente);
+            }
+            
+            //Creacion de paquetes en BD
+            for (Paquete p : paquetes) {
+                paqueteDAO.create(p);
+            }
+            
+            //Crecion de ingresos de paquetes
+            for (Paquete p : paquetes) {
+                costoPeso = (p.getPeso()*precioDAO.getValor(2));
+                cuotaD = rutaDAO.getCuotaDestino(p.getIdRuta());
+                if (p.getPriorizado() == 0) {
+                    precioPriorizacion = 0;
+                }else {
+                    precioPriorizacion = precioDAO.getValor(3);
+                }
+                nuevoIngresoPaquete(codFact, p.getId(), cliente.getNit(), fecha, 
+                        precioPriorizacion, precioLibra, cuotaD, costoPeso);
+                ingresoPDAO.create(ingresoP);
+                bodegaDAO.AddPaqueteToBodega(p.getId());
+            }
         }
     }
     
@@ -246,8 +355,18 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
         paquete.setPriorizado((byte) priori);
     }
     
-    private void nuevoIngresoPaquete(){
-        //nuevoIngreso
+    private void nuevoIngresoPaquete(int codF, int idP, String nitC, String fecha,
+            float precioPrio, float precioLib, float cuotaD, float costoP){
+        ingresoP = new IngresoPaquete();
+        ingresoP.setCodigoFactura(codF);
+        ingresoP.setIdPaquete(idP);
+        ingresoP.setNitCliente(nitC);
+        ingresoP.setFecha(LocalDate.parse(fecha));
+        ingresoP.setPrecioPriorizacion(precioPrio);
+        ingresoP.setPrecioLibra(precioLib);
+        ingresoP.setCuotaDestino(cuotaD);
+        ingresoP.setCostoPeso(costoP);
+        ingresoP.setTotal();
     }
 
     @Override

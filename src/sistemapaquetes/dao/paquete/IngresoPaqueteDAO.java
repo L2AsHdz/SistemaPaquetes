@@ -8,5 +8,5 @@ import sistemapaquetes.model.IngresoPaquete;
  * @author asael
  */
 public interface IngresoPaqueteDAO extends CRUD<IngresoPaquete>{
-    
+    public int getCodFactura();
 }

@@ -34,7 +34,7 @@ public class RutaDAOImpl implements RutaDAO{
         
         try {
             String sql = "SELECT r.*, d.Nombre AS NombreDestino FROM Ruta AS r "
-            + "INNER JOIN Destino AS d ON r.IdDestino=d.Id;";
+            + "INNER JOIN Destino AS d ON r.IdDestino=d.Id";
             Statement declaracion = conexion.createStatement();
             
             rutas = new ArrayList();
@@ -125,6 +125,28 @@ public class RutaDAOImpl implements RutaDAO{
     @Override
     public void delete(int t) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public int getCuotaDestino(int idRuta) {
+        int cuotaD = 0;
+        try {
+            String sql = "SELECT d.CuotaDestino FROM Ruta AS r INNER JOIN Destino AS d "
+                    + "ON r.IdDestino=d.ID WHERE r.Id = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idRuta);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                cuotaD = rs.getInt(1);
+            }
+            System.out.println("CuotaDestino obtenida");
+            ps.close();
+            ps = null;
+        } catch (SQLException ex) {
+            System.out.println("No se pudo leer la cuotaD");
+            ex.printStackTrace();
+        }
+        return cuotaD;
     }
     
 }

@@ -26,7 +26,7 @@ public class BodegaDAOImpl implements BodegaDAO{
     @Override
     public void AddPaqueteToBodega(int id) {
         try {
-            String sql = "INSERT INTO ColaBOdega VALUES (?)";
+            String sql = "INSERT INTO ColaBodega VALUES (?)";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();

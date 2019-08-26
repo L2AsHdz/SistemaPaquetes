@@ -160,7 +160,7 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
         btnUpdate.setText("Actualizar");
         btnUpdate.setEnabled(false);
 
-        btnEnviar.setText("Enviar a bodega");
+        btnEnviar.setText("Siguiente");
 
         btnCerrra.setText("Cerrar");
 
@@ -208,9 +208,7 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
                         .addComponent(btnLimpiar)
                         .addGap(18, 18, 18)
                         .addComponent(btnCerrra))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnEnviar)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
@@ -234,6 +232,10 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
                             .addGap(36, 36, 36)
                             .addComponent(chbPriorizar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 23, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,7 +338,7 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
         return btnCerrra;
     }
 
-    public JButton getBtnEnviar() {
+    public JButton getBtnSiguiente() {
         return btnEnviar;
     }
 
