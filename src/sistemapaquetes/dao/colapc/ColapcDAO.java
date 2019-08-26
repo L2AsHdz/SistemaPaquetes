@@ -11,7 +11,7 @@ import sistemapaquetes.model.PuntoControl;
  */
 public interface ColapcDAO{
     public int getNoPaquetes(int noPC, int idRuta);
-    public List<PaqueteInCola> getListado(int noPC);
+    public List<PaqueteInCola> getListado(int noPC, int idRuta);
     public void addPaqueteToCola(Paquete p, int noPC);
     public void removePaquete(Paquete p, PuntoControl pc);
 }

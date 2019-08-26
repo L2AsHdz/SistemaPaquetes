@@ -6,6 +6,8 @@ import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import sistemapaquetes.dao.CRUD;
 import sistemapaquetes.dao.cliente.ClienteDAOImpl;
+import sistemapaquetes.dao.colapc.ColapcDAO;
+import sistemapaquetes.dao.colapc.ColapcDAOImpl;
 import sistemapaquetes.dao.destino.DestinoDAOImpl;
 import sistemapaquetes.dao.precio.PrecioDAOImpl;
 import sistemapaquetes.dao.puntocontrol.PuntoControlDAOImpl;
@@ -25,6 +27,7 @@ public class ListasObservables{
     private CRUD<PrecioGlobal> precioDAO = PrecioDAOImpl.getPrecioDAO();
     private CRUD<PuntoControl> puntoCDAO = PuntoControlDAOImpl.getPuntoCDAO();
     private CRUD<Cliente> clienteDAO = ClienteDAOImpl.getClienteDAOImpl();
+    private ColapcDAO colaPCDAO = ColapcDAOImpl.getColaDAOImpl();
     
     //listados para Usuarios
     private List<Usuario> userList = new ArrayList();
@@ -60,6 +63,10 @@ public class ListasObservables{
     private List<PuntoControl> puntosCList = new ArrayList();
     private ObservableList<PuntoControl> puntosCObservableList;
     
+    //listados para nombres puntos de control
+    private List<String> namePCList = new ArrayList();
+    private ObservableList<String> namePCObservableList;
+    
     //Listados para clientes
     private List<Cliente> clientesList = new ArrayList();
     private ObservableList<Cliente> clientesObservableList;
@@ -67,6 +74,10 @@ public class ListasObservables{
     //listados para paquetes
     private List<Paquete> paqueteList = new ArrayList();
     private ObservableList<Paquete> paquetesObservableLIst;
+    
+    //listado para paquetes en colaPC
+    private List<PaqueteInCola> colaPCList = new ArrayList();
+    private ObservableList<PaqueteInCola> colaPCObservableList;
 
     //Constructor privado para evitar instancias nuevas
     private ListasObservables() {
@@ -81,6 +92,8 @@ public class ListasObservables{
         puntosCObservableList = ObservableCollections.observableList(puntosCList);
         clientesObservableList = ObservableCollections.observableList(clientesList);
         paquetesObservableLIst = ObservableCollections.observableList(paqueteList);
+        namePCObservableList = ObservableCollections.observableList(namePCList);
+        colaPCObservableList = ObservableCollections.observableList(colaPCList);
     }
     
     //Devuelve la unca instancia del Objeto
@@ -260,6 +273,28 @@ public class ListasObservables{
     
     //////////////////Fin metodos listados puntos de control////////////////////
     
+    ////////////////Metodos para listados de nombres de PuntosC/////////////////
+
+    public ObservableList<String> getNamePCObservableList() {
+        return namePCObservableList;
+    }
+
+    public void setNamePCObservableList(ObservableList<String> namePCObservableList) {
+        this.namePCObservableList = namePCObservableList;
+    }
+    
+    public void reloadListNamePC(String dpi, int idRuta){
+        namePCObservableList.clear();
+        puntosCList = puntoCDAO.getListado();
+        for (PuntoControl pc : puntosCList) {
+            if (pc.getDPIOperador().equals(dpi) && pc.getIdRuta() == idRuta) {
+                namePCObservableList.add(String.valueOf(pc.getNumero()));
+            }
+        }
+    }
+    
+    /////////////////fin metodos listados des nombres de PuntoC/////////////////
+    
     //////////////////Metodos para listado observable de clientes///////////////
 
     public ObservableList<Cliente> getClientesObservableList() {
@@ -294,6 +329,24 @@ public class ListasObservables{
         paquetesObservableLIst.addAll(paqueteList);
     }
     //////////////////fin de metodos para listado de paquetes///////////////////
+    
+    /////////////////metodos para listado de paquetes en colaPC/////////////////
+
+    public ObservableList<PaqueteInCola> getColaPCObservableList() {
+        return colaPCObservableList;
+    }
+
+    public void setColaPCObservableList(ObservableList<PaqueteInCola> colaPCObservableList) {
+        this.colaPCObservableList = colaPCObservableList;
+    }
+    
+    public void reloadistColaPC(int noPC, int idRuta){
+        colaPCList = colaPCDAO.getListado(noPC, idRuta);
+        colaPCObservableList.clear();
+        colaPCObservableList.addAll(colaPCList);
+    }
+    
+    ////////////////fin metodos de listado de paquetes en colaPC////////////////
     
     public void reloadListadosU(){
         reloadListUser();

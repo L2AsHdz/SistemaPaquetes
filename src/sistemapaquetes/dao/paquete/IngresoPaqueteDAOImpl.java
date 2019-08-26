@@ -37,9 +37,9 @@ public class IngresoPaqueteDAOImpl implements IngresoPaqueteDAO{
             String sql = "SELECT * FROM IngresoPaquete";
             Statement declaracion = conexion.createStatement();
             
+            ingresos = new ArrayList();
             ResultSet rs = declaracion.executeQuery(sql);
             while (rs.next()) {
-                ingresos = new ArrayList();
                 IngresoPaquete ingreso = new IngresoPaquete();
                 ingreso.setId(rs.getInt("Id"));
                 ingreso.setCodigoFactura(rs.getInt("CodigoFactura"));

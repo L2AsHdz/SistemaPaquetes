@@ -46,6 +46,7 @@ public class PuntoControlDAOImpl implements PuntoControlDAO{
                 puntoC.setNumero(rs.getInt("Numero"));
                 puntoC.setNombre(rs.getString("Nombre"));
                 puntoC.setLimitePaquetes(rs.getInt("LimitePaquetes"));
+                puntoC.setDPIOperador(rs.getString("DPIOperador"));
                 puntoC.setNombreOperador(rs.getString("Operador"));
                 puntoC.setNombreRuta(rs.getString("Ruta"));
                 puntoC.setTarifaOperacion(rs.getFloat("TarifaOperacion"));

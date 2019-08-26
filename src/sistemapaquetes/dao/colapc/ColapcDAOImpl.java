@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import sistemapaquetes.model.Conexion;
 import sistemapaquetes.model.Paquete;
@@ -53,20 +54,35 @@ public class ColapcDAOImpl implements ColapcDAO{
     }
 
     @Override
-    public List<PaqueteInCola> getListado(int noPC) {
+    public List<PaqueteInCola> getListado(int noPC, int idRuta) {
         List<PaqueteInCola> paquetesCola = null;
         
         try {
-            String sql = "SELECT * FROM ColaPuntoControl WHERE NoPuntoCotrol = ?";
+            String sql = "SELECT c.*, p.Nombre AS Paquete, r.Nombre AS Ruta, "
+                    + "pc.Nombre AS PuntoControl, pc.TarifaOperacion, pc.TarifaOperacionGlobal "
+                    + "FROM ColaPuntoControl AS c INNER JOIN Paquete AS p ON c.IdPaquete=p.Id "
+                    + "INNER JOIN PuntoControl AS pc ON c.NoPuntoControl=pc.Numero AND "
+                    + "c.IdRutaPC=pc.IdRuta INNER JOIN Ruta AS r ON pc.IdRuta = r.Id "
+                    + "WHERE c.NoPuntoControl=? AND c.IdRutaPC=? Limit 1";
+            paquetesCola = new ArrayList();
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, noPC);
-            
+            ps.setInt(2, idRuta);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                System.out.println("Entro al resulset colaPC");
                 PaqueteInCola pCola = new PaqueteInCola();
                 pCola.setIdPaquete(rs.getInt("IdPaquete"));
+                pCola.setNombrePaquete(rs.getString("Paquete"));
                 pCola.setIdPuntoControl(noPC);
-                pCola.setIdRuta(rs.getInt("IdRutaPC"));
+                pCola.setNombrePuntoControl(rs.getString("PuntoControl"));
+                pCola.setIdRuta(idRuta);
+                pCola.setNombreRuta(rs.getString("Ruta"));
+                if (isFloat(rs.getString("TarifaOperacion"))) {
+                    pCola.setTarifaOperacion(rs.getFloat("TarifaOperacion"));
+                }else{
+                    pCola.setTarifaOperacion(rs.getFloat("TarifaOperacionGlobal"));
+                }
                 paquetesCola.add(pCola);
             }
             System.out.println("Listado de paquetes en cola leido correctamente");
@@ -115,4 +131,12 @@ public class ColapcDAOImpl implements ColapcDAO{
         }
     }
     
+    private boolean isFloat(String tarifa){
+        try {
+            Float.parseFloat(tarifa);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

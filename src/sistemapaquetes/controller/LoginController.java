@@ -7,10 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import sistemapaquetes.controller.operador.OperadorUIController;
 import sistemapaquetes.controller.recepcionista.RecepcionistaUIController;
 import sistemapaquetes.model.Usuario;
 import sistemapaquetes.ui.LoginView;
 import sistemapaquetes.ui.administradorUI.AdminView;
+import sistemapaquetes.ui.operadorUI.OperadorView;
 import sistemapaquetes.ui.recepcionistaUI.RecepcionistaView;
 
 /**
@@ -21,6 +23,8 @@ public class LoginController implements ActionListener{
     private LoginView login;
     private CRUD<Usuario> userDAO;
     
+    private String dpi = "";
+    
     //Vista y controlador para AdminUI
     private AdminView adminView;
     private AdminUIController adminC;
@@ -28,6 +32,10 @@ public class LoginController implements ActionListener{
     //Vista y controlador para RecepcionistaUI
     private RecepcionistaView recepView;
     private RecepcionistaUIController recepC;
+    
+    //Vista y controlador para OperadorUI
+    private OperadorView operView;
+    private OperadorUIController operC;
 
     public LoginController(LoginView log) {
         this.login = log;
@@ -70,6 +78,7 @@ public class LoginController implements ActionListener{
             for (Usuario u : users) {
                 if (nombre.equalsIgnoreCase(u.getNombreUsuario()) && pass.equals(u.getPassword())) {
                     tipoUser = u.getTipo();          
+                    dpi = u.getDPI();
                     if (u.getEstado() == 0) {
                         tipoUser = 4;
                     }
@@ -91,7 +100,11 @@ public class LoginController implements ActionListener{
                     break;
                 
                 case 2:
-                    //abrir gui operador
+                    login.dispose();
+                    limpiarCampos();
+                    operView = new OperadorView();
+                    operC = new OperadorUIController(operView, dpi);
+                    operC.iniciar();
                     break;
                     
                 case 3:
