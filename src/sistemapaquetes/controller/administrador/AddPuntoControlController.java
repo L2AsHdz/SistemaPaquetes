@@ -168,7 +168,7 @@ public class AddPuntoControlController extends MouseAdapter implements ActionLis
         addPCView.getCbRutas().setSelectedIndex(pc.getIdRuta()-1);
         addPCView.getCbDPIOperador().setSelectedItem(pc.getDPIOperador());
         //Hay que validar la cola de los puntos de control para poder editar
-        if (colaDAO.getNoPaquetes(pc.getNumero()) == 0) {
+        if (colaDAO.getNoPaquetes(pc.getNumero(), pc.getIdRuta()) == 0) {
             addPCView.getBtnUpdate().setEnabled(true);
             addPCView.getCbRutas().setEnabled(false);
         }else {
