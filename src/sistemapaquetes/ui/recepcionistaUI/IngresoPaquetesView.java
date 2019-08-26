@@ -109,19 +109,19 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Direccion");
 
-        txtDireccion.setEditable(false);
+        txtDireccion.setEnabled(false);
 
         jLabel4.setText("Telefono");
 
-        txtNombreC.setEditable(false);
+        txtNombreC.setEnabled(false);
 
-        txtTelefono.setEditable(false);
         try {
             txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         txtTelefono.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTelefono.setEnabled(false);
 
         try {
             txtNit.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
@@ -132,12 +132,17 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Nombre Paquete");
 
+        txtNombreP.setEnabled(false);
+
         jLabel6.setText("Peso");
+
+        txtPeso.setEnabled(false);
 
         jLabel7.setText("Ruta");
 
         AutoCompleteDecorator.decorate(cbRuta);
         cbRuta.setEditable(true);
+        cbRuta.setEnabled(false);
 
         eLProperty = org.jdesktop.beansbinding.ELProperty.create("${nameRListObservable}");
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, cbRuta);
@@ -147,6 +152,7 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
+        txtDescripcion.setEnabled(false);
         jScrollPane2.setViewportView(txtDescripcion);
 
         btnAgregar.setText("Agregar");
@@ -159,6 +165,7 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
         btnCerrra.setText("Cerrar");
 
         chbPriorizar.setText("Priorizar");
+        chbPriorizar.setEnabled(false);
 
         btnEliminar.setText("Borrar");
 
@@ -318,6 +325,7 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
         if (visibility) {
             observableList.reloadListNameRutas();
         }
+        super.setVisible(visibility);
     }
     
     public JButton getBtnAgregar() {

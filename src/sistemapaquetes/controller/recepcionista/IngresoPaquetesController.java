@@ -90,7 +90,10 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
             }
         }else if (ingresoPView.getBtnCerrra() == e.getSource()) {
             limpiarCamposP();
+            enableCamposP(false);
             limpiarCamposC();
+            paquetes.clear();
+            list.reloadPaquetes1(paquetes);
             ingresoPView.dispose();
         }else if (ingresoPView.getBtnEnviar() == e.getSource()) {
             
@@ -112,6 +115,9 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
         }else if (ingresoPView.getBtnLimpiar() == e.getSource()) {
             limpiarCamposP();
             limpiarCamposC();
+            enableCamposP(false);
+            paquetes.clear();
+            list.reloadPaquetes1(paquetes);
         }
     }
     
@@ -123,20 +129,27 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
                 String nit = ingresoPView.getTxtNit().getText();
                 cliente = clienteDAO.getObject(nit);
                 if (cliente != null) {
-                    ingresoPView.getTxtNit().setText(cliente.getNit());
                     ingresoPView.getTxtDireccion().setText(cliente.getDireccion());
                     ingresoPView.getTxtNombreC().setText(cliente.getNombre());
                     ingresoPView.getTxtTelefono().setText(cliente.getTelefono());
-                    ingresoPView.getTxtNombreP().requestFocus();
+                    enableCamposC(false);
                 }else {
                     System.out.println("cliente no existe");
-                    ingresoPView.getTxtNombreC().setEditable(true);
-                    ingresoPView.getTxtDireccion().setEditable(true);
-                    ingresoPView.getTxtTelefono().setEditable(true);
-                    ingresoPView.getTxtNombreC().requestFocus();
+                    limpiarCamposC();
+                    enableCamposC(true);
                 }
+                ingresoPView.getTxtNit().setText(nit);
+                enableCamposP(true);
                 clienteBuscado = true;
             }
+        }
+    }
+    
+    @Override
+    public void focusGained(FocusEvent e){
+        if (ingresoPView.getTxtNit() == e.getComponent()) {
+            clienteBuscado = false;
+            ingresoPView.getTxtNit().setText("");
         }
     }
     
@@ -185,19 +198,32 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
         ingresoPView.getTxtDescripcion().setText("");
         ingresoPView.getCbRuta().setSelectedIndex(-1);
         ingresoPView.getChbPriorizar().setSelected(false);
+        ingresoPView.getTxtNombreP().requestFocus();
         ingresoPView.getBtnUpdate().setEnabled(false);
         ingresoPView.getBtnAgregar().setEnabled(true);
     }
     
     private void limpiarCamposC(){
-        clienteBuscado = false;
         ingresoPView.getTxtNit().setText("");
         ingresoPView.getTxtNombreC().setText("");
-        ingresoPView.getTxtNombreC().setEditable(false);
         ingresoPView.getTxtDireccion().setText("");
-        ingresoPView.getTxtDireccion().setEditable(false);
         ingresoPView.getTxtTelefono().setText("");
-        ingresoPView.getTxtTelefono().setEditable(false);
+        enableCamposC(false);
+    }
+    
+    private void enableCamposP(boolean bool){
+        ingresoPView.getTxtNombreP().setEnabled(bool);
+        ingresoPView.getTxtPeso().setEnabled(bool);
+        ingresoPView.getTxtDescripcion().setEnabled(bool);
+        ingresoPView.getCbRuta().setEnabled(bool);
+        ingresoPView.getChbPriorizar().setEnabled(bool);
+    }
+    
+    private void enableCamposC(boolean bool){
+        ingresoPView.getTxtNombreC().setEnabled(bool);
+        ingresoPView.getTxtTelefono().setEnabled(bool);
+        ingresoPView.getTxtDireccion().setEnabled(bool);
+        
     }
     
     private void nuevoCliente(String nit, String nombre, String dir, String tel){
@@ -234,7 +260,7 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
         ingresoPView.getTxtDescripcion().setText(paquete.getDescripcion());
         ingresoPView.getTxtPeso().setText(String.valueOf(paquete.getPeso()));
         ingresoPView.getCbRuta().setSelectedIndex(paquete.getIdRuta()-1);
-        ingresoPView.getChbPriorizar().setSelected(paquete.getPriorizado() == 0);
+        ingresoPView.getChbPriorizar().setSelected(paquete.getPriorizado() == 1);
         ingresoPView.getBtnUpdate().setEnabled(true);
         ingresoPView.getBtnAgregar().setEnabled(false);
     }
