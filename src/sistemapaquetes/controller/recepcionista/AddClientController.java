@@ -2,8 +2,8 @@ package sistemapaquetes.controller.recepcionista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import sistemapaquetes.dao.cliente.ClienteDAO;
@@ -16,7 +16,7 @@ import sistemapaquetes.ui.recepcionistaUI.AddClienteView;
  *
  * @author asael
  */
-public class AddClientController implements ActionListener, MouseListener{
+public class AddClientController extends MouseAdapter implements ActionListener {
     
     private AddClienteView addClientView;
     private Cliente cliente;
@@ -58,12 +58,12 @@ public class AddClientController implements ActionListener, MouseListener{
         
         if (addClientView.getBtnAgregar() == e.getSource()) {
             
-            if (validarDatos(nit, nombre, direccion, telefono)) {
+            if (validarDatos(nit, nombre)) {
                 nuevoCliente(nit, nombre, direccion, telefono);
                 clienteDAO.create(cliente);
                 list.reloadLIstClientes();
+                limpiarCampos();
             }
-            limpiarCampos();
         }else if (addClientView.getBtnCerrar() == e.getSource()) {
             limpiarCampos();
             addClientView.dispose();
@@ -72,30 +72,22 @@ public class AddClientController implements ActionListener, MouseListener{
             nitTemp = "";
         }else if (addClientView.getBtnUpdate() == e.getSource()) {
             
-            if (validarDatos(nit, nombre, direccion, telefono)) {
+            if (validarDatos(nit, nombre)) {
                 nuevoCliente(nit, nombre, direccion, telefono);
                 clienteDAO.update(cliente,nitTemp);
                 list.reloadLIstClientes();
+                limpiarCampos();
             }
-            limpiarCampos();
         }
     }
     
-    private boolean validarDatos(String nit, String nombre, String dir, String tel){
+    private boolean validarDatos(String nit, String nombre){
         boolean validacion = true;
         if (nit.isEmpty() || nombre.isEmpty()) {
             System.out.println("Hay campos vacios");
-            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", 
+            JOptionPane.showMessageDialog(null, "el nit y el nombre son obligatorios", 
                     "Advertencia", JOptionPane.ERROR_MESSAGE);
             validacion = false;
-        }
-        if (!tel.isEmpty()) {
-            if (tel.length() != 9) {
-                System.out.println("Telefono incompleto");
-                JOptionPane.showMessageDialog(null, "No es un numero de telefono valido", 
-                        "Advertencia", JOptionPane.ERROR_MESSAGE);
-                validacion = false;
-            }
         }
         return validacion;
     }
@@ -105,7 +97,7 @@ public class AddClientController implements ActionListener, MouseListener{
         addClientView.getTxtNombre().setText("");
         addClientView.getTxtDireccion().setText("");
         addClientView.getTxtTelefono().setText("");
-        addClientView.getTxtNit().requestFocus();
+        addClientView.getTxtNombre().requestFocus();
         addClientView.getBtnUpdate().setEnabled(false);
     }
     
@@ -116,13 +108,12 @@ public class AddClientController implements ActionListener, MouseListener{
         if (!dir.isEmpty()) {
             cliente.setDireccion(dir);
         }
-        if (!tel.isEmpty()) {
-            cliente.setTelefono(tel);
-        }
+        cliente.setTelefono(tel);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        limpiarCampos();
         int fila = addClientView.getTblClientes().getSelectedRow();
         nitTemp = (String) addClientView.getTblClientes().getValueAt(fila, 0);
         cliente = clienteDAO.getObject(nitTemp);
@@ -132,17 +123,5 @@ public class AddClientController implements ActionListener, MouseListener{
         addClientView.getTxtTelefono().setText(cliente.getTelefono());
         addClientView.getBtnUpdate().setEnabled(true);
     }
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
-
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
     
 }

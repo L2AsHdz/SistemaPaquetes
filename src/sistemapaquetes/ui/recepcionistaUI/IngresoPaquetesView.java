@@ -5,16 +5,35 @@
  */
 package sistemapaquetes.ui.recepcionistaUI;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import org.jdesktop.observablecollections.ObservableList;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import sistemapaquetes.model.ListasObservables;
+import sistemapaquetes.model.Paquete;
+
 /**
  *
  * @author asael
  */
 public class IngresoPaquetesView extends javax.swing.JInternalFrame {
 
+    private ListasObservables observableList;
+    private ObservableList<Paquete> paqueteListObservable;
+    private ObservableList<String> nameRListObservable;
+    
     /**
      * Creates new form IngresoPaquetesView
      */
     public IngresoPaquetesView() {
+        observableList = ListasObservables.getInstance();
+        paqueteListObservable = observableList.getPaquetesObservableLIst();
+        nameRListObservable = observableList.getNameRutasObservableList();
         initComponents();
     }
 
@@ -26,6 +45,7 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPaquetes = new javax.swing.JTable();
@@ -52,17 +72,35 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
         btnEnviar = new javax.swing.JButton();
         btnCerrra = new javax.swing.JButton();
         chbPriorizar = new javax.swing.JCheckBox();
+        btnEliminar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
 
         setTitle("Ingresar Paquetes");
 
-        tblPaquetes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${paqueteListObservable}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tblPaquetes);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
+        columnBinding.setColumnName("Nombre");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descripcion}"));
+        columnBinding.setColumnName("Descripcion");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${peso}"));
+        columnBinding.setColumnName("Peso");
+        columnBinding.setColumnClass(Float.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${priorizadoS}"));
+        columnBinding.setColumnName("Priorizado");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreRuta}"));
+        columnBinding.setColumnName("Ruta");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
         jScrollPane1.setViewportView(tblPaquetes);
 
         jLabel1.setText("Nit");
@@ -71,8 +109,13 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Direccion");
 
+        txtDireccion.setEditable(false);
+
         jLabel4.setText("Telefono");
 
+        txtNombreC.setEditable(false);
+
+        txtTelefono.setEditable(false);
         try {
             txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
         } catch (java.text.ParseException ex) {
@@ -93,6 +136,13 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Ruta");
 
+        AutoCompleteDecorator.decorate(cbRuta);
+        cbRuta.setEditable(true);
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${nameRListObservable}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, cbRuta);
+        bindingGroup.addBinding(jComboBoxBinding);
+
         jLabel8.setText("Descripcion");
 
         txtDescripcion.setColumns(20);
@@ -109,6 +159,10 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
         btnCerrra.setText("Cerrar");
 
         chbPriorizar.setText("Priorizar");
+
+        btnEliminar.setText("Borrar");
+
+        btnLimpiar.setText("Limpiar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,38 +191,42 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel2)
                                 .addGap(22, 22, 22)
                                 .addComponent(txtNombreC, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAgregar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUpdate)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLimpiar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCerrra))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnEnviar)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(cbRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel8)
+                            .addGap(7, 7, 7)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel5)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(txtNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(chbPriorizar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(btnAgregar)
-                            .addGap(45, 45, 45)
-                            .addComponent(btnUpdate)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEnviar)
-                            .addGap(44, 44, 44)
-                            .addComponent(btnCerrra))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                            .addGap(36, 36, 36)
+                            .addComponent(chbPriorizar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,27 +255,28 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(cbRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel8)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAgregar)
-                            .addComponent(btnUpdate)
-                            .addComponent(btnCerrra)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEnviar)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnCerrra)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnLimpiar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEnviar)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -226,7 +285,9 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCerrra;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEnviar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cbRuta;
     private javax.swing.JCheckBox chbPriorizar;
@@ -249,5 +310,93 @@ public class IngresoPaquetesView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNombreP;
     private javax.swing.JTextField txtPeso;
     private javax.swing.JFormattedTextField txtTelefono;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+    
+    @Override
+    public void setVisible(boolean visibility){
+        if (visibility) {
+            observableList.reloadListNameRutas();
+        }
+    }
+    
+    public JButton getBtnAgregar() {
+        return btnAgregar;
+    }
+
+    public JButton getBtnCerrra() {
+        return btnCerrra;
+    }
+
+    public JButton getBtnEnviar() {
+        return btnEnviar;
+    }
+
+    public JButton getBtnUpdate() {
+        return btnUpdate;
+    }
+
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public JButton getBtnLimpiar() {
+        return btnLimpiar;
+    }
+
+    public JComboBox<String> getCbRuta() {
+        return cbRuta;
+    }
+
+    public JCheckBox getChbPriorizar() {
+        return chbPriorizar;
+    }
+
+    public JTable getTblPaquetes() {
+        return tblPaquetes;
+    }
+
+    public JTextArea getTxtDescripcion() {
+        return txtDescripcion;
+    }
+
+    public JTextField getTxtDireccion() {
+        return txtDireccion;
+    }
+
+    public JFormattedTextField getTxtNit() {
+        return txtNit;
+    }
+
+    public JTextField getTxtNombreC() {
+        return txtNombreC;
+    }
+
+    public JTextField getTxtNombreP() {
+        return txtNombreP;
+    }
+
+    public JTextField getTxtPeso() {
+        return txtPeso;
+    }
+
+    public JFormattedTextField getTxtTelefono() {
+        return txtTelefono;
+    }
+
+    public ObservableList<Paquete> getPaqueteListObservable() {
+        return paqueteListObservable;
+    }
+
+    public void setPaqueteListObservable(ObservableList<Paquete> paqueteListObservable) {
+        this.paqueteListObservable = paqueteListObservable;
+    }
+
+    public ObservableList<String> getNameRListObservable() {
+        return nameRListObservable;
+    }
+
+    public void setNameRListObservable(ObservableList<String> nameRListObservable) {
+        this.nameRListObservable = nameRListObservable;
+    }
 }

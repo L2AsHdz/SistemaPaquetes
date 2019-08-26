@@ -213,7 +213,7 @@ public class ListasObservables{
         this.nameRutasObservableList = nameRutasObservableList;
     }
     
-    private void reloadListNameRutas(){
+    public void reloadListNameRutas(){
         nameRutasObservableList.clear();
         rutasList = rutaDAO.getListado();
         for (Ruta r : rutasList) {

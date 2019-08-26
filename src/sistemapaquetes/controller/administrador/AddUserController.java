@@ -65,8 +65,8 @@ public class AddUserController extends MouseAdapter implements ActionListener {
                 userDAO.create(usuario);
                 list.reloadListadosU();
                 //addUserView.reloadList();
+                limpiarCampos();
             }
-            limpiarCampos();
         } else if (addUserView.getBtnCerrar() == e.getSource()) {
             limpiarCampos();
             addUserView.dispose();
@@ -79,8 +79,8 @@ public class AddUserController extends MouseAdapter implements ActionListener {
                 userDAO.update(usuario,dpiTemp);
                 list.reloadListadosU();
                 //addUserView.reloadList();
+                limpiarCampos();
             }
-            limpiarCampos();
         }
     }
 

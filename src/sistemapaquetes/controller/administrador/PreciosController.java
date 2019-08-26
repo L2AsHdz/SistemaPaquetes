@@ -69,8 +69,8 @@ public class PreciosController extends MouseAdapter implements ActionListener{
                 precio.setValor(Float.parseFloat(valor));
                 precioDAO.update(precio);
                 list.reloadPrecios();
+                limpiarCampos();
             }
-            limpiarCampos();
         }
     }
 

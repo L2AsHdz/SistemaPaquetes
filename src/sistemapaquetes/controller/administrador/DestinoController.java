@@ -62,8 +62,8 @@ public class DestinoController extends MouseAdapter implements ActionListener{
                 nuevoDestino(nombre, cuotaDestino);
                 destinoDAO.create(destino);
                 list.reloadListadosD();
+                limpiarCampos();
             }
-            limpiarCampos();
             
         }else if (destinoView.getBtnCerrar() == e.getSource()) {
             limpiarCampos();
@@ -78,8 +78,8 @@ public class DestinoController extends MouseAdapter implements ActionListener{
                 destino.setId(idTemp);
                 destinoDAO.update(destino);
                 list.reloadListadosD();
+                limpiarCampos();
             }
-            limpiarCampos();
         }
     }
     

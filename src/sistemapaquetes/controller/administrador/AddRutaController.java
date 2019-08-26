@@ -63,8 +63,8 @@ public class AddRutaController extends MouseAdapter implements ActionListener {
                 nuevaRuta(nombre, idDestino, descripcion);
                 rutaDAO.create(ruta);
                 list.reloadListadosR();
+                limpiarCampos();
             }
-            limpiarCampos();
             
         }else if (addRutaView.getBtnCerrar() == e.getSource()) {
             limpiarCampos();
@@ -79,8 +79,8 @@ public class AddRutaController extends MouseAdapter implements ActionListener {
                 ruta.setId(idTemp);
                 rutaDAO.update(ruta);
                 list.reloadListadosR();
+                limpiarCampos();     
             }
-            limpiarCampos();     
         }
     }
     
@@ -112,6 +112,7 @@ public class AddRutaController extends MouseAdapter implements ActionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        limpiarCampos();
         int fila = addRutaView.getTblRutas().getSelectedRow();
         idTemp = (int)addRutaView.getTblRutas().getValueAt(fila, 0);
         ruta = rutaDAO.getObject(idTemp);

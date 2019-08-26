@@ -99,7 +99,7 @@ public class LoginController implements ActionListener{
                     limpiarCampos();
                     recepView = new RecepcionistaView();
                     recepC = new RecepcionistaUIController(recepView);
-                    recepC.iniar();
+                    recepC.iniciar();
                     break;
                 case 4:
                     JOptionPane.showMessageDialog(null, "Usuario Deshabilitado", 

@@ -77,18 +77,20 @@ public class ClienteDAOImpl implements ClienteDAO{
 
     @Override
     public Cliente getObject(Object nit) {
-        Cliente c = new Cliente();
+        Cliente c = null;
         try {
             String sql = "SELECT * FROM Cliente WHERE NIT = ?";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, (String)nit);
             ResultSet rs = ps.executeQuery();
             
-            rs.next();
-            c.setNit(rs.getString("NIT"));
-            c.setNombre(rs.getString("Nombre"));
-            c.setDireccion(rs.getString("Direccion"));
-            c.setTelefono(rs.getString("Telefono"));
+            if (rs.next()) {
+                c = new Cliente();
+                c.setNit(rs.getString("NIT"));
+                c.setNombre(rs.getString("Nombre"));
+                c.setDireccion(rs.getString("Direccion"));
+                c.setTelefono(rs.getString("Telefono"));
+            }
             
             System.out.println("Cliente obtenido de la BD");
             ps.close();

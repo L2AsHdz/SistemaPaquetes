@@ -75,8 +75,8 @@ public class AddPuntoControlController extends MouseAdapter implements ActionLis
                 nuevoPuntoControl(nombre, limite, valor, idRuta);
                 puntoCDAO.create(pc);
                 list.reloadPuntosControl();
+                limpiarDatos();
             }
-            limpiarDatos();
             
         }else if (addPCView.getBtnCerrar() == e.getSource()) {
             limpiarDatos();
@@ -87,11 +87,14 @@ public class AddPuntoControlController extends MouseAdapter implements ActionLis
             numero = 0;
         }else if (addPCView.getBtnUpdate() == e.getSource()) {
             
-            /*
             if (validarDatos(nombre, valor, limite, idRuta, idOp)) {
                 nuevoPuntoControl(nombre, limite, valor, idOp);
-            }*/
-            //Logiac de actualizacion de Punto de Control
+                pc.setIdRuta(this.idRutatemp);
+                pc.setNumero(this.numero);
+                puntoCDAO.update(pc);
+                list.reloadPuntosControl();
+                limpiarDatos();
+            }
         }
 
     }
@@ -125,6 +128,7 @@ public class AddPuntoControlController extends MouseAdapter implements ActionLis
         addPCView.getCbDPIOperador().setSelectedIndex(-1);
         addPCView.getTxtNombre().requestFocus();
         addPCView.getBtnUpdate().setEnabled(false);
+        addPCView.getCbRutas().setEnabled(true);
     }
     
     private boolean isFloat(String s){
@@ -153,6 +157,7 @@ public class AddPuntoControlController extends MouseAdapter implements ActionLis
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        limpiarDatos();
         int fila = addPCView.getTblPuntosControl().getSelectedRow();
         idRutatemp = (int) addPCView.getTblPuntosControl().getValueAt(fila, 0);
         numero = (int) addPCView.getTblPuntosControl().getValueAt(fila, 1);
@@ -163,10 +168,11 @@ public class AddPuntoControlController extends MouseAdapter implements ActionLis
         addPCView.getCbRutas().setSelectedIndex(pc.getIdRuta()-1);
         addPCView.getCbDPIOperador().setSelectedItem(pc.getDPIOperador());
         //Hay que validar la cola de los puntos de control para poder editar
-        if (colaDAO.getNoPaquetes(pc.getNumero()) < pc.getLimitePaquetes()) {
+        if (colaDAO.getNoPaquetes(pc.getNumero()) == 0) {
             addPCView.getBtnUpdate().setEnabled(true);
+            addPCView.getCbRutas().setEnabled(false);
         }else {
-            JOptionPane.showMessageDialog(null, "La cola del punto de control esta completa",
+            JOptionPane.showMessageDialog(null, "Para modificar datos no deben haber paquetes en cola",
                     "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
     }    
