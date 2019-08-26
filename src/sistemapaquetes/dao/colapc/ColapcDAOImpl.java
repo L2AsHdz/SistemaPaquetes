@@ -80,19 +80,19 @@ public class ColapcDAOImpl implements ColapcDAO{
     }
 
     @Override
-    public void addPaqueteToCola(Paquete p, PuntoControl pc) {
+    public void addPaqueteToCola(Paquete p, int noPC) {
         try {
             String sql = "INSERT INTO ColaPuntoControl VALUES (?,?,?)";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, p.getId());
-            ps.setInt(2, pc.getNumero());
-            ps.setInt(3, pc.getIdRuta());
+            ps.setInt(2, noPC);
+            ps.setInt(3, p.getIdRuta());
             ps.executeUpdate();
-            System.out.println("Destino Ingresado Correctamente");
+            System.out.println("Paquete Agregado Correctamente");
             ps.close();
             ps = null;
         } catch (SQLException ex) {
-            System.out.println("No se inserto el destino");
+            System.out.println("No se agrego el paquete");
             ex.printStackTrace();
         }
     }

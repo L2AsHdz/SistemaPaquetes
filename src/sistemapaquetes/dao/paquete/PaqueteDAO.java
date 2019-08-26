@@ -9,4 +9,5 @@ import sistemapaquetes.model.Paquete;
  */
 public interface PaqueteDAO extends CRUD<Paquete>{
     public int getIdPaquete();
+    public void actualizarEstadoRetiro(Paquete p);
 }

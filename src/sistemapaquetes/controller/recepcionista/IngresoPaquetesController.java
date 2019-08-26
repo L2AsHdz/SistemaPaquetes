@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
+import sistemapaquetes.controller.colas.ColaBodegaController;
 import sistemapaquetes.dao.CRUD;
 import sistemapaquetes.dao.bodega.BodegaDAO;
 import sistemapaquetes.dao.bodega.BodegaDAOImpl;
@@ -38,6 +39,7 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
     
     private IngresoPaquetesView ingresoPView;
     private FacturaView facturaView;
+    private ColaBodegaController colaB;
     private Paquete paquete;
     private IngresoPaquete ingresoP;
     private Cliente cliente;
@@ -60,6 +62,7 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
         precioDAO = PrecioDAOImpl.getPrecioDAO();
         rutaDAO = RutaDAOImpl.getRutaDAO();
         bodegaDAO = BodegaDAOImpl.getBodegaDAOImpl();
+        colaB = ColaBodegaController.getColaBodega();
         this.facturaView = new FacturaView();
         this.ingresoPView = ingresoPView;
         this.ingresoPView.getBtnAgregar().addActionListener(this);
@@ -231,6 +234,7 @@ public class IngresoPaquetesController extends FocusAdapter implements ActionLis
             }
             
             JOptionPane.showMessageDialog(null, "Ingreso Correcto");
+            colaB.movilizarPaquetes();
             facturaView.dispose();
             ingresoPView.getBtnLimpiar().doClick();
         }

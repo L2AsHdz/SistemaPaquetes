@@ -140,5 +140,22 @@ public class PaqueteDAOImpl implements PaqueteDAO{
         }
         return id;
     }
+
+    @Override
+    public void actualizarEstadoRetiro(Paquete p) {
+        try {
+            String sql = "UPDATE Paquete SET EstadoRetiro = ? WHERE Id = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, p.getEstadoRetiro());
+            ps.setInt(2, p.getId());
+            ps.executeUpdate();
+            System.out.println("estadoRetiro actualizado");
+            ps.close();
+            ps=null;
+        } catch (SQLException ex) {
+            System.out.println("No se actualizo el estadoR");
+            ex.printStackTrace();
+        }
+    }
     
 }
