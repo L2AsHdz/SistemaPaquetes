@@ -61,7 +61,7 @@ public class ProcesoPaqueteDAOImpl implements ProcesoPaqueteDAO{
     @Override
     public void create(ProcesoPaquete p) {
         try {
-            String sql = "INSERT INTO IngresoPaquete(IdPaquete, NoPuntoControl, IdRutaPC, "
+            String sql = "INSERT INTO ProcesoPaquete (IdPaquete, NoPuntoControl, IdRutaPC, "
                     + "Horas, TarifaOperacion, Costo) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, p.getIdPaquete());
@@ -93,6 +93,28 @@ public class ProcesoPaqueteDAOImpl implements ProcesoPaqueteDAO{
     @Override
     public void delete(int t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCostoPaquete(int idP) {
+        int costo = 0;
+        try {
+            String sql = "SELECT SUM(Costo) FROM ProcesoPaquete WHERE IdPaquete = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idP);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                costo = rs.getInt(1);
+            }
+            
+            System.out.println("Costo obtenido");
+            ps.close();
+            ps = null;
+        } catch (SQLException ex) {
+            System.out.println("No se pudo leer el codigoF");
+            ex.printStackTrace();
+        }
+        return costo;
     }
     
 }

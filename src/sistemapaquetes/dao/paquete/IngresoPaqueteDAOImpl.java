@@ -126,5 +126,49 @@ public class IngresoPaqueteDAOImpl implements IngresoPaqueteDAO{
         }
         return codigo;
     }
+
+    @Override
+    public int getingresoPaquete(int idP) {
+        int ingreso = 0;
+        try {
+            String sql = "SELECT Total FROM IngresoPaquete WHERE Id Paquete = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idP);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                ingreso = rs.getInt(1);
+            }
+            
+            System.out.println("CodigoFactura obtenido");
+            ps.close();
+            ps = null;
+        } catch (SQLException ex) {
+            System.out.println("No se pudo leer el codigoF");
+            ex.printStackTrace();
+        }
+        return ingreso;
+    }
+
+    @Override
+    public String getCliente(int idP) {
+        String nit = "";
+        try {
+            String sql = "SELECT NitCliente FROM IngresoPaquete WHERE Id Paquete = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idP);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                nit = rs.getString(1);
+            }
+            
+            System.out.println("nit obtenido");
+            ps.close();
+            ps = null;
+        } catch (SQLException ex) {
+            System.out.println("No se pudo leer el codigoF");
+            ex.printStackTrace();
+        }
+        return nit;
+    }
     
 }

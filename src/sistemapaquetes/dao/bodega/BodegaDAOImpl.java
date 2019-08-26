@@ -49,6 +49,7 @@ public class BodegaDAOImpl implements BodegaDAO{
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();
+            System.out.println("se elimino paquete de la bodega");
             ps.close();
             ps = null;
         } catch (SQLException ex) {

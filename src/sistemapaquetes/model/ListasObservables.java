@@ -9,6 +9,7 @@ import sistemapaquetes.dao.cliente.ClienteDAOImpl;
 import sistemapaquetes.dao.colapc.ColapcDAO;
 import sistemapaquetes.dao.colapc.ColapcDAOImpl;
 import sistemapaquetes.dao.destino.DestinoDAOImpl;
+import sistemapaquetes.dao.paquete.PaqueteDAOImpl;
 import sistemapaquetes.dao.precio.PrecioDAOImpl;
 import sistemapaquetes.dao.puntocontrol.PuntoControlDAOImpl;
 import sistemapaquetes.dao.ruta.RutaDAOImpl;
@@ -28,6 +29,7 @@ public class ListasObservables{
     private CRUD<PuntoControl> puntoCDAO = PuntoControlDAOImpl.getPuntoCDAO();
     private CRUD<Cliente> clienteDAO = ClienteDAOImpl.getClienteDAOImpl();
     private ColapcDAO colaPCDAO = ColapcDAOImpl.getColaDAOImpl();
+    private CRUD<Paquete> paqueteDAO = PaqueteDAOImpl.getPaqueteDAOImpl();
     
     //listados para Usuarios
     private List<Usuario> userList = new ArrayList();
@@ -78,6 +80,10 @@ public class ListasObservables{
     //listado para paquetes en colaPC
     private List<PaqueteInCola> colaPCList = new ArrayList();
     private ObservableList<PaqueteInCola> colaPCObservableList;
+    
+    //listaods para paquetes en destino
+    private List<Paquete> paqueteDList = new ArrayList();
+    private ObservableList<Paquete> paquetesDObservableList;
 
     //Constructor privado para evitar instancias nuevas
     private ListasObservables() {
@@ -94,6 +100,7 @@ public class ListasObservables{
         paquetesObservableLIst = ObservableCollections.observableList(paqueteList);
         namePCObservableList = ObservableCollections.observableList(namePCList);
         colaPCObservableList = ObservableCollections.observableList(colaPCList);
+        paquetesDObservableList = ObservableCollections.observableList(paqueteDList);
     }
     
     //Devuelve la unca instancia del Objeto
@@ -347,6 +354,26 @@ public class ListasObservables{
     }
     
     ////////////////fin metodos de listado de paquetes en colaPC////////////////
+    
+    /////////////////////metodos de listado paquetes en destino/////////////////
+
+    public ObservableList<Paquete> getPaquetesDObservableList() {
+        return paquetesDObservableList;
+    }
+
+    public void setPaquetesDObservableList(ObservableList<Paquete> paquetesDObservableList) {
+        this.paquetesDObservableList = paquetesDObservableList;
+    }
+    
+    public void reloadListPaquetesD(){
+        paquetesDObservableList.clear();
+        paqueteList = paqueteDAO.getListado();
+        for (Paquete p : paqueteList) {
+            if (p.getEstadoRetiro() == 2) {
+                paquetesDObservableList.add(p);
+            }
+        }
+    }
     
     public void reloadListadosU(){
         reloadListUser();

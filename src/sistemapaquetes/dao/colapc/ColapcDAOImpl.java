@@ -9,7 +9,6 @@ import java.util.List;
 import sistemapaquetes.model.Conexion;
 import sistemapaquetes.model.Paquete;
 import sistemapaquetes.model.PaqueteInCola;
-import sistemapaquetes.model.PuntoControl;
 
 /**
  *
@@ -78,7 +77,7 @@ public class ColapcDAOImpl implements ColapcDAO{
                 pCola.setNombrePuntoControl(rs.getString("PuntoControl"));
                 pCola.setIdRuta(idRuta);
                 pCola.setNombreRuta(rs.getString("Ruta"));
-                if (isFloat(rs.getString("TarifaOperacion"))) {
+                if (isFloat(rs.getString("TarifaOperacion")) && Float.parseFloat(rs.getString("TarifaOperacion")) != 0) {
                     pCola.setTarifaOperacion(rs.getFloat("TarifaOperacion"));
                 }else{
                     pCola.setTarifaOperacion(rs.getFloat("TarifaOperacionGlobal"));
@@ -114,15 +113,13 @@ public class ColapcDAOImpl implements ColapcDAO{
     }
 
     @Override
-    public void removePaquete(Paquete p, PuntoControl pc) {
+    public void removePaquete(int idP) {
         try {
-            String sql = "DELETE FROM ColaPuntoControl WHERE NoPuntoCotrol = ?"
-                    + " AND IdPaquete = ? AND IdRUtaPC = ?";
+            String sql = "DELETE FROM ColaPuntoControl WHERE IdPaquete = ?";
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, pc.getNumero());
-            ps.setInt(2, p.getId());
-            ps.setInt(3, pc.getIdRuta());
+            ps.setInt(1, idP);
             ps.executeUpdate();
+            System.out.println("se elimino el registro-colaPC");
             ps.close();
             ps = null;
         } catch (SQLException ex) {

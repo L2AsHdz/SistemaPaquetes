@@ -33,8 +33,8 @@ public class PaqueteDAOImpl implements PaqueteDAO{
         
         try {
             String sql = "SELECT p.Id, p.Nombre, r.Nombre AS NombreRuta, p.Descripcion, "
-                    + "p.Peso, p.Priorizado, FROM Paquete AS p INNER JOIN Ruta AS r"
-                    + "ON p.IdRuta=r.Id ORDER BY p.Id ASC;";
+                    + "p.Peso, p.Priorizado, p.EstadoRetiro FROM Ruta AS r INNER JOIN Paquete AS p "
+                    + "ON r.Id=p.IdRuta ORDER BY p.Id ASC";
             Statement declaracion = conexion.createStatement();
             
             paquetes = new ArrayList();
@@ -44,6 +44,7 @@ public class PaqueteDAOImpl implements PaqueteDAO{
                 paquete.setId(rs.getInt("Id"));
                 paquete.setNombre(rs.getString("Nombre"));
                 paquete.setNombreRuta(rs.getString("NombreRuta"));
+                paquete.setEstadoRetiro(rs.getByte("EstadoRetiro"));
                 paquete.setDescripcion(rs.getString("Descripcion"));
                 paquete.setPeso(rs.getFloat("Peso"));
                 paquete.setPriorizado(rs.getByte("Priorizado"));

@@ -7,17 +7,26 @@ package sistemapaquetes.ui.recepcionistaUI;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JMenuItem;
+import javax.swing.JTable;
+import org.jdesktop.observablecollections.ObservableList;
+import sistemapaquetes.model.ListasObservables;
+import sistemapaquetes.model.Paquete;
 
 /**
  *
  * @author asael
  */
 public class RecepcionistaView extends javax.swing.JFrame {
+    
+    private ListasObservables observableList;
+    private ObservableList<Paquete> paquetesDListObservable;
 
     /**
      * Creates new form RecepcionistaView
      */
     public RecepcionistaView() {
+        observableList  = ListasObservables.getInstance();
+        paquetesDListObservable = observableList.getPaquetesDObservableList();
         initComponents();
     }
 
@@ -29,8 +38,12 @@ public class RecepcionistaView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         DeskRecepcion = new javax.swing.JDesktopPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblInDestino = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         JMenu1 = new javax.swing.JMenu();
         itmClientes = new javax.swing.JMenuItem();
@@ -41,15 +54,52 @@ public class RecepcionistaView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${paquetesDListObservable}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, tblInDestino);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
+        columnBinding.setColumnName("Id");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
+        columnBinding.setColumnName("Nombre");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreRuta}"));
+        columnBinding.setColumnName("Ruta");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${estadoRetiroS}"));
+        columnBinding.setColumnName("Estado Retiro");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane1.setViewportView(tblInDestino);
+
+        jLabel1.setText("Paquetes en espera de ser recogidos");
+
+        DeskRecepcion.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DeskRecepcion.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout DeskRecepcionLayout = new javax.swing.GroupLayout(DeskRecepcion);
         DeskRecepcion.setLayout(DeskRecepcionLayout);
         DeskRecepcionLayout.setHorizontalGroup(
             DeskRecepcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGroup(DeskRecepcionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(DeskRecepcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
         DeskRecepcionLayout.setVerticalGroup(
             DeskRecepcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE)
+            .addGroup(DeskRecepcionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(183, Short.MAX_VALUE))
         );
 
         JMenu1.setText("Clientes");
@@ -85,6 +135,8 @@ public class RecepcionistaView extends javax.swing.JFrame {
             .addComponent(DeskRecepcion)
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -96,10 +148,21 @@ public class RecepcionistaView extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmClientes;
     private javax.swing.JMenuItem itmConsultarL;
     private javax.swing.JMenuItem itmRetiroP;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblInDestino;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
+    public void setVisible(boolean visibility){
+        if (visibility) {
+            observableList.reloadListPaquetesD();
+        }
+        super.setVisible(visibility);
+    }
+    
     public JDesktopPane getDeskRecepcion() {
         return DeskRecepcion;
     }
@@ -118,5 +181,17 @@ public class RecepcionistaView extends javax.swing.JFrame {
 
     public JMenuItem getItmRetiroP() {
         return itmRetiroP;
+    }
+
+    public JTable getTblInDestino() {
+        return tblInDestino;
+    }
+
+    public ObservableList<Paquete> getPaquetesDListObservable() {
+        return paquetesDListObservable;
+    }
+
+    public void setPaquetesDListObservable(ObservableList<Paquete> paquetesDListObservable) {
+        this.paquetesDListObservable = paquetesDListObservable;
     }
 }

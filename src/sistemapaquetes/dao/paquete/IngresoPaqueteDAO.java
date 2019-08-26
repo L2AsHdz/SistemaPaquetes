@@ -9,4 +9,6 @@ import sistemapaquetes.model.IngresoPaquete;
  */
 public interface IngresoPaqueteDAO extends CRUD<IngresoPaquete>{
     public int getCodFactura();
+    public int getingresoPaquete(int idP);
+    public String getCliente(int idP);
 }
